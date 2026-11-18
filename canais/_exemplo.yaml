@@ -1,0 +1,27 @@
+# Copie para canais/<nome>.yaml, ou gere todos com: ./yt-pub-x3 importar-canais
+# Nenhum segredo aqui: o login do YouTube fica em config_dir.
+destino_nome: Meu Canal
+url: https://www.youtube.com/@meucanal
+origem_id: ""            # canal de onde vêm as lives, se este canal corta
+config_dir: /caminho/config
+lives_dir: /caminho/lives
+ativo: false             # o hub só toca em canal com ativo: true
+max_tentativas: 3
+youtube:
+  ligado: true
+  horarios: ["08:00", "12:00", "18:00"]   # 1 vídeo por horário
+  privacy: public
+rs:
+  provedor: metricool    # vazio = canal sem redes sociais
+  ligado: true
+  marca: minha-marca
+  blog_id: 0
+  redes: [tiktok, instagram]
+  instagram: meuperfil
+  tiktok: meuperfil
+  # horarios: ["09:00"]  # opcional; sem isso usa os do YouTube
+cortes:
+  ligado: false
+  horarios: ["01:35"]
+  max_por_dia: 1
+  ai_modo: claude-api    # o motor real fica em scripts/ia.yaml

@@ -1,0 +1,9 @@
+.env
+data/
+entrada/
+canais/*.yaml
+!canais/_exemplo.yaml
+__pycache__/
+*.pyc
+*.bak
+handoffs/

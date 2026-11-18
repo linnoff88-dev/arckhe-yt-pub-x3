@@ -1,0 +1,13 @@
+[Unit]
+Description=yt-pub-x3: hub de publicação
+After=network-online.target
+
+[Service]
+WorkingDirectory=%h/projetos/yt-pub-x3
+# Sem X3_PUBLICAR=1 o hub só simula. Ligar publicação real é decisão do piloto.
+ExecStart=/usr/bin/python3 %h/projetos/yt-pub-x3/hub.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

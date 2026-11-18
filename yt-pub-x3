@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Comandos do yt-pub-x3."""
+import argparse
+import os
+import shutil
+import sys
+import tempfile
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from lib import VERSION, canais as canais_mod, config, cortes, db, entrada, importar  # noqa: E402
+
+
+def canal(nome):
+    c = canais_mod.carregar().get(nome)
+    if not c:
+        sys.exit(f'canal não existe: {nome} (rode: yt-pub-x3 importar-canais)')
+    return c
+
+
+def enviar(a):
+    """Copia a pasta para a entrada e já valida; a original fica intacta."""
+    c = canal(a.canal)
+    origem = os.path.abspath(a.pasta)
+    if not os.path.isdir(origem):
+        sys.exit('pasta não existe')
+    os.makedirs(config.acervo_dir(), exist_ok=True)
+    tmp = tempfile.mkdtemp(prefix='envio-', dir=config.acervo_dir())
+    copia = os.path.join(tmp, os.path.basename(origem))
+    shutil.copytree(origem, copia)
+    con = db.connect()
+    try:
+        item = entrada.enfileirar_pasta(con, c, copia, simular=not config.publicar_de_verdade())
+        print(f'na fila: item {item} do {a.canal}')
+    except entrada.Adiar as e:
+        sys.exit(f'não enviado: {e}. Informe os textos no post.json.')
+    except entrada.Recusa as e:
+        sys.exit(f'recusado: {e}')
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def status(_):
+    con = db.connect()
+    cs = canais_mod.carregar()
+    print(f"yt-pub-x3 v{VERSION} · {'PUBLICANDO' if config.publicar_de_verdade() else 'simulação'} · {len(cs)} canais")
+    for n, c in cs.items():
+        r = {(x['destino'], x['status']): x['n'] for x in con.execute('SELECT destino,status,COUNT(*) n FROM entregas WHERE canal=? GROUP BY 1,2', (n,))}
+        f = lambda d: ' '.join(f'{s}={q}' for (dd, s), q in sorted(r.items()) if dd == d) or '-'
+        print(f"{n:8} {'ATIVO' if c['ativo'] else 'off  '} yt[{f('youtube')}] rs[{f('rs')}]")
+
+
+def fila(a):
+    con = db.connect()
+    for r in con.execute("""SELECT e.id,e.destino,e.status,e.motivo,i.tipo,i.titulo FROM entregas e JOIN itens i ON i.id=e.item_id
+                            WHERE e.canal=? ORDER BY e.id DESC LIMIT ?""", (a.canal, a.n)):
+        print(f"{r['id']:5} {r['destino']:7} {r['status']:10} {r['tipo']:9} {r['titulo'][:60]} {r['motivo'][:50]}")
+
+
+def acao(a):
+    ok = db.acao(db.connect(), a.entrega, a.nome)
+    sys.exit(0 if ok else f'{a.nome} não se aplica à entrega {a.entrega} neste estado')
+
+
+def imp_canais(a):
+    f, p = importar.importar(a.sobrescrever)
+    print(f"criados: {len(f)} · já existiam: {len(p)} · todos com ativo: false nos novos")
+
+
+def imp_lives(a):
+    print(f'{cortes.importar_historico(db.connect(), canal(a.canal))} lives importadas')
+
+
+ap = argparse.ArgumentParser(prog='yt-pub-x3')
+sub = ap.add_subparsers(dest='cmd', required=True)
+p = sub.add_parser('enviar', help='põe uma pasta na fila')
+p.add_argument('pasta')
+p.add_argument('--canal', required=True)
+p.set_defaults(f=enviar)
+sub.add_parser('status').set_defaults(f=status)
+p = sub.add_parser('fila')
+p.add_argument('canal')
+p.add_argument('-n', type=int, default=30)
+p.set_defaults(f=fila)
+for nome in db.ACOES:
+    p = sub.add_parser(nome)
+    p.add_argument('entrega', type=int)
+    p.set_defaults(f=acao, nome=nome)
+p = sub.add_parser('importar-canais')
+p.add_argument('--sobrescrever', action='store_true')
+p.set_defaults(f=imp_canais)
+p = sub.add_parser('importar-lives')
+p.add_argument('canal')
+p.set_defaults(f=imp_lives)
+a = ap.parse_args()
+a.f(a)

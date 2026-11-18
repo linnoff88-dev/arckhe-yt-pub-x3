@@ -1,0 +1,11 @@
+[Unit]
+Description=yt-pub-x3: painel local em 127.0.0.1:8230
+
+[Service]
+WorkingDirectory=%h/projetos/yt-pub-x3
+ExecStart=/usr/bin/python3 %h/projetos/yt-pub-x3/dashboard/server.py 8230
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

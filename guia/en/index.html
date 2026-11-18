@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your video won't get stuck when YouTube stalls — yt-pub-x3</title>
+<meta name="description" content="One open queue for people who automate publishing on YouTube and social media. If one destination fails, the others keep going. Project in testing.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/yt-pub-x3/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/yt-pub-x3/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/yt-pub-x3/guia/es/">
+<meta property="og:title" content="Your video won't get stuck when YouTube stalls — yt-pub-x3">
+<meta property="og:description" content="One open queue for people who automate publishing on YouTube and social media. If one destination fails, the others keep going. Project in testing.">
+<meta property="og:image" content="https://inematds.github.io/yt-pub-x3/guia/assets/banner-en.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#FACC15; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    --fill:#FACC15; --tint:rgba(250,204,21,.12); --ok:#7CE0C6; --bad:#F0918A;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#a16207; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    --fill:#FACC15; --tint:#FEF9C3; --ok:#0E6B55; --bad:#A83426;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  body.light pre .k{color:#f0c070}
+  body.light nav{background:rgba(246,247,249,.85)}
+  body.light .amb{color:var(--txt);background:linear-gradient(transparent 55%,#FACC15 55%)}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  body.light main a:not(.btn),body.light footer a{color:#854d0e;text-decoration:underline;text-decoration-color:#FACC15;text-decoration-thickness:3px}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  p code,li code,td code{font-size:.9em;background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:.05em .35em}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb);white-space:nowrap}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:var(--tint)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--fill);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  nav .links a.sec{white-space:nowrap}
+  @media(max-width:1360px){nav .links a.opt{display:none}}
+  @media(max-width:860px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(250,204,21,.18),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.3rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.15rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:44ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:66ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.95rem;margin:0}
+  .card p+p{margin-top:.6em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0;margin:.4em 0 0}
+  pre .c{color:#7d7d8a} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:28px}
+  .step>div{min-width:0}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--fill);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .5em}
+  .quem{display:inline-block;font-family:Sora;font-size:.75rem;letter-spacing:.06em;color:var(--txt);background:var(--tint);border:1px solid var(--line);border-radius:999px;padding:.1em .7em;margin-left:.5em;vertical-align:middle;font-weight:600}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:4px}
+  /* numbers */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  @media(max-width:720px){.stats{grid-template-columns:1fr}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .stat b{display:block;font:800 clamp(1.9rem,4vw,2.6rem)/1.05 Sora,sans-serif;letter-spacing:-.02em;color:var(--amb)}
+  body.light .stat b{color:var(--txt)}
+  .stat span{display:block;color:var(--mut);font-size:.93rem;margin-top:.5em}
+  .fonte{font-size:.86rem;color:var(--mut);margin-top:14px;max-width:80ch}
+  /* exchanges */
+  .troca{display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;padding:26px 0;border-top:1px solid var(--line)}
+  .troca:first-of-type{border-top:none}
+  .troca .n{width:64px;height:64px;border-radius:14px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;font:800 1.6rem Sora,sans-serif;color:var(--amb)}
+  body.light .troca .n{color:var(--txt);background:var(--fill);border-color:var(--fill)}
+  .troca h3{font-size:1.3rem;margin-bottom:.35em}
+  .troca p{margin:.35em 0;max-width:72ch}
+  .troca .ex{margin-top:.8em;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--fill);border-radius:10px;padding:12px 16px;font-size:.95rem;color:var(--mut);max-width:76ch}
+  .troca .ex b{color:var(--txt)}
+  @media(max-width:540px){.troca{grid-template-columns:1fr}}
+  /* three outcomes */
+  .vs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;max-width:900px}
+  @media(max-width:720px){.vs{grid-template-columns:1fr}}
+  .vs div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.93rem}
+  .vs strong{display:block;font-family:Sora;margin-bottom:.25em}
+  .vs .r{display:block;margin-top:.5em;font-weight:600}
+  .vs .r.bad{color:var(--bad)} .vs .r.ok{color:var(--ok)}
+  .card ul{margin:8px 0 0;padding-left:20px}.card li{margin:5px 0}
+  /* proof */
+  .prova{background:var(--card);border:1px solid var(--amb);border-radius:16px;padding:26px 26px 22px;margin-top:6px}
+  body.light .prova{border-color:#EAB308}
+  .tl{list-style:none;margin:0;padding:0;counter-reset:t}
+  .tl li{position:relative;padding:0 0 18px 48px;counter-increment:t}
+  .tl li::before{content:counter(t);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:10px;background:var(--fill);color:#1a1206;font:800 .95rem/32px Sora,sans-serif;text-align:center}
+  .tl li::after{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;background:var(--line)}
+  .tl li:last-child::after{display:none}
+  .tl b{font-family:Sora}
+  blockquote{margin:6px 0 0;padding:14px 18px;border-left:3px solid var(--fill);background:var(--bg2);border-radius:0 10px 10px 0;font-size:1.02rem}
+  .prova .rod{font-size:.86rem;color:var(--mut);margin-top:14px}
+  /* technical section */
+  .techhead{background:var(--bg2);border-top:3px solid var(--fill);padding:58px 0 8px}
+  .techhead h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:.3em 0 0}
+  .techhead .sub{color:var(--mut);margin:.6em 0 1.2em;max-width:66ch}
+  .techzone{background:var(--bg2)}
+  .techzone .card{background:var(--card)}
+  .tbl{width:100%;border-collapse:collapse;font-size:.93rem}
+  .tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl th{font-family:Sora;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+  .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+  @media(max-width:600px){.tbl thead{display:none} .tbl tr{display:block;border-bottom:1px solid var(--line);padding:6px 0} .tbl tr:last-child{border-bottom:none} .tbl td{display:block;border:none;padding:4px 14px}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🚦</span> yt-pub-x3</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#explicado">The benefit</a>
+    <a class="sec" href="#dia">Day to day</a>
+    <a class="sec opt" href="#como">How it works</a>
+    <a class="sec" href="#comecar">Getting started</a>
+    <a class="sec opt" href="#prova">The proof</a>
+    <span class="lang"><a href="../">PT</a><a class="on" href="./">EN</a><a href="../es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+    <a class="btn" href="https://github.com/inematds/yt-pub-x3" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">yt-pub-x3 · free, open source · in testing</span>
+      <h1>Your video won't get stuck <span class="amb">when YouTube stalls</span></h1>
+      <p class="lead">You automate publishing to multiple channels, and a YouTube failure also holds up Instagram and TikTok: videos stop reaching your social channels without anyone noticing. The <strong>yt-pub-x3 single queue</strong> separates each destination: if one stops, the others keep going. The project is still in testing and has not run on a real channel.</p>
+      <div class="cta">
+        <a class="btn" href="#explicado">What you get</a>
+        <a class="btn ghost" href="#comecar">Getting started</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-en.jpg" alt="yt-pub-x3: one queue, with YouTube and social channels sent separately"></figure>
+  </div>
+</header>
+
+<main>
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">In a nutshell</span>
+  <p><strong>yt-pub-x3 is a publishing queue for people who already automate multiple channels.</strong> Your automation sends in a video, photo, or carousel, and the system publishes to YouTube and schedules posts on social media through Metricool, a scheduling tool, at each channel's scheduled times. It also cuts livestreams into clips for YouTube. Vertical videos up to 3 minutes go to both; horizontal videos go only to YouTube. It was built for INEMA's operations: outside that setup, the social media part needs its own connector. It runs on a computer that's always on and requires a technical person or a coding AI.</p>
+  <figure style="margin:22px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="../assets/banner-grade-en.jpg" alt="yt-pub-x3: one input, YouTube, social media through Metricool, livestream clips, per-destination status, and a per-channel dashboard" loading="lazy" style="width:100%;display:block"></figure>
+</div></section>
+
+<section id="explicado"><div class="wrap">
+  <span class="chip">The benefit</span>
+  <h2>Before and after the <span class="amb">single queue</span></h2>
+  <div class="grid g2">
+    <div class="card"><h3>😩 Without the single queue</h3><p>Each system publishes differently. A video scheduled on YouTube doesn't notify social media, and you only realize days later that Instagram has been inactive.</p><p>If the YouTube login expires, everything stops, and no one knows what went out.</p></div>
+    <div class="card"><h3>😌 With the single queue</h3><p>Everything comes in through the same place. YouTube and social channels have separate statuses, and posting times come from each channel's settings.</p><p>If YouTube stops, social channels keep going, and the video stays queued. When YouTube comes back, the queue moves at a pace of one item per time slot.</p></div>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><h3>🚦 One problem doesn't take everything down</h3><p>An expired login or YouTube limit pauses only YouTube for that channel.</p></div>
+    <div class="card"><h3>👀 See everything in one place</h3><p>One card per channel, with its queue, errors, chart, and links. The dashboard opens on the computer running the system.</p></div>
+    <div class="card"><h3>🎛️ Control each video</h3><p>Pause, skip, or resend each destination without changing the others.</p></div>
+  </div>
+</div></section>
+
+<!-- VIDEO: project explainer video goes here once published -->
+
+<section id="dia"><div class="wrap">
+  <span class="chip">Day to day</span>
+  <h2>How this changes your <span class="amb">routine</span></h2>
+  <p class="sub">Three situations for people who already have bots or scripts publishing every day.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🎬 The video is ready</h3><p><strong>Today:</strong> each automation publishes differently, and some videos never make it to social media.</p><p><strong>With the queue:</strong> the automation drops the file and a brief with the title and copy in the channel folder. The schedule takes care of the rest. The system does not adapt the video's format.</p></div>
+    <div class="card"><h3>🔑 The YouTube login expired</h3><p><strong>Today:</strong> uploads fail one after another.</p><p><strong>With the queue:</strong> YouTube for that channel pauses, the dashboard shows why, and the videos stay queued.</p></div>
+    <div class="card"><h3>🖼️ The post is a carousel</h3><p><strong>Today:</strong> it goes through a separate workflow, away from the videos.</p><p><strong>With the queue:</strong> it goes to social media through the same input and doesn't take up a YouTube time slot.</p></div>
+  </div>
+  <div class="prova" style="margin-top:22px">
+    <ol class="tl">
+      <li><b>9:00 AM · the automation sends in the video</b><br><span class="mut">with a title, description, and social media copy.</span></li>
+      <li><b>10:00 AM · the channel's time slot arrives</b><br><span class="mut">YouTube gets the next item in the queue, and the social media post is scheduled in Metricool. At INEMA, posts from the same brand are spaced 1 hour apart.</span></li>
+      <li><b>10:05 AM · you open the dashboard</b><br><span class="mut">and see each destination marked as done, waiting, skipped, or failed. For social media, "done" means scheduled.</span></li>
+    </ol>
+  </div>
+</div></section>
+
+<section id="como"><div class="wrap">
+  <span class="chip">How it works, without the jargon</span>
+  <h2>Think of it as a <span class="amb">shipping hub</span></h2>
+  <p class="sub">Content comes in through one door, and each delivery leaves in its own truck.</p>
+  <div class="grid g3">
+    <div class="card"><h3>📥 The intake</h3><p>Each post is a folder with the file and a brief. If the brief is wrong or the file is a duplicate, the post is rejected with a reason.</p></div>
+    <div class="card"><h3>🚚 One truck per destination</h3><p>YouTube and social media go out separately. One stalled truck doesn't hold up the other.</p></div>
+    <div class="card"><h3>🕘 Each channel's schedule</h3><p>Each channel has its own posting times and publishes one item at a time.</p></div>
+    <div class="card"><h3>✂️ The clip workshop</h3><p>For the channels you enable, AI selects segments from livestreams. The AI is instructed to choose clips from 2 to 15 minutes long, and the clips keep the livestream's format, so horizontal clips go only to YouTube.</p></div>
+    <div class="card"><h3>🖼️ The thumbnail</h3><p>For INEMA's operation, regular videos get an AI-generated thumbnail. Shorts, the short vertical videos, don't get a thumbnail. In another installation, you provide your own.</p></div>
+    <div class="card"><h3>🧾 The checker</h3><p>If the power goes out during an upload, it won't blindly send the video again. It asks you to check so it doesn't create a duplicate.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>✅ It's worth it if</h3><p>You have multiple channels, publish through automation, and have had one destination bring down another.</p></div>
+    <div class="card"><h3>🚫 You don't need it if</h3><p>You schedule your posts manually in Metricool, the social media scheduling tool. In that case, each post is already independent.</p></div>
+  </div>
+  <p class="fonte" style="margin-top:20px"><strong>What it doesn't promise:</strong> It doesn't guarantee views, create videos from scratch, change a video's format, or bypass each platform's limits. A connector is the piece that links the system to a publishing tool. This project calls a Metricool connector, but the one we use is part of INEMA's operation and isn't included in this package. Outside that setup, social media only works after someone builds a connector for you. There are no connectors for other tools yet, such as Blotato.</p>
+</div></section>
+
+<section id="comecar"><div class="wrap">
+  <span class="chip">Getting started</span>
+  <h2>First, find out if <span class="amb">it's right for you</span></h2>
+  <p class="sub">Ask for an assessment before installing. You'll need a coding AI, such as Claude Code or Codex, that can read and edit files on your computer.</p>
+  <div class="grid g3">
+    <div class="card"><h3>1. Open the AI</h3><p>Ask whoever maintains your scripts to open it in the folder with your publishing automations.</p></div>
+    <div class="card"><h3>2. Paste the prompt</h3><p>It compares your publishing setup with the project and won't change anything.</p></div>
+    <div class="card"><h3>3. Decide</h3><p>If it seems worthwhile, the first test is a simulation, where nothing gets published.</p></div>
+  </div>
+  <div class="pedido" style="margin-top:20px;position:relative">
+<pre id="pedidoTxt" style="white-space:pre-wrap">Read the yt-pub-x3 project at https://github.com/inematds/yt-pub-x3 (the README explains everything, including installation).
+Then look at how I publish today and answer in plain English:
+1. Which channels and social platforms do I have, and where would one failure currently take down more than one destination?
+2. What would yt-pub-x3 solve for me, what wouldn't it solve, and would it be worthwhile in my case?
+3. What's missing (a computer that's always on, YouTube login, Metricool, adaptations), and which channel would be the best test?
+For this step, only read and analyze: don't install anything, change anything, or publish anything. End with a plan and wait for my response.</pre>
+    <button class="btn" id="copiarPedido" style="margin-top:10px">Copy the prompt</button>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>🧰 What you'll need</h3><p>A Linux computer that's always on, the operating system commonly used on servers; Google authorization for each channel, set up by the technical team; Metricool and GitHub accounts, where code projects are hosted; and a technical person or coding AI. The social media connector isn't ready-made: you'll need to create your own.</p></div>
+    <div class="card"><h3>🛠️ Want the details?</h3><p>The installation instructions and details about what depends on our machine are on GitHub.</p><p><a href="https://github.com/inematds/yt-pub-x3/blob/main/README.en.md" target="_blank" rel="noopener">Open the installation guide</a></p></div>
+  </div>
+</div></section>
+
+<section id="prova"><div class="wrap">
+  <span class="chip">The proof</span>
+  <h2>It started with a real failure and <span class="amb">is still in testing</span></h2>
+  <p class="sub">One day, 26 scheduled videos went out on YouTube but never reached social media because the old system only notified social media about immediate posts.</p>
+  <div class="prova">
+    <ol class="tl">
+      <li><b>We simulated the failures that hurt most.</b><br><span class="mut">Expired login, YouTube limit, social platform failure, interruption during an upload, and duplicate file.</span></li>
+      <li><b>The videos stayed queued and social media kept going.</b><br><span class="mut">No interrupted upload was retried automatically.</span></li>
+      <li><b>An independent review looked for defects.</b><br><span class="mut">The issues found were fixed and covered by tests.</span></li>
+    </ol>
+    <p class="rod">Status as of 11/18/2026: automated tests are passing with simulated uploads; nothing is being published. The dashboard already reads our 19 channels for viewing only. No channels have been connected, and this system has not published anything.</p>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <span class="chip">Common questions</span>
+  <h2>Before you <span class="amb">decide</span></h2>
+  <div class="grid g2">
+    <div class="card"><h3>Do I need to know how to code?</h3><p>You'll need a technical person or coding AI to install and adapt it. After that, the dashboard is enough to monitor things, but it only opens on the computer running the system. Access from a phone or another computer requires separate setup.</p></div>
+    <div class="card"><h3>How does a video get into the queue?</h3><p>Through your automation, which creates a folder with the file and the brief. The dashboard doesn't accept uploads.</p></div>
+    <div class="card"><h3>How much does it cost?</h3><p>The project is free. Costs include a Metricool plan, a coding AI subscription, the computer that stays on, and the technical work to create the social media connector.</p></div>
+    <div class="card"><h3>Does it publish as soon as I install it?</h3><p>No. Channels start turned off, and everything runs in simulation until you turn them on.</p></div>
+    <div class="card"><h3>What if the video is horizontal?</h3><p>It goes only to YouTube. On a channel with Instagram, vertical videos over 3 minutes also stay off all social platforms. The dashboard shows why.</p></div>
+    <div class="card"><h3>Will my video be public before it's time?</h3><p>Yes. For Metricool to download it, a copy of the video, photo, or carousel is hosted at a public GitHub address, and the system doesn't delete it afterward. Keep this in mind if the content is unpublished.</p></div>
+  </div>
+  <p class="fonte" style="margin-top:22px">What about you: when one destination fails, what else stops in your operation? Free AI courses and guides, online at inema.club.</p>
+</div></section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">YouTube</div><div class="pill">Metricool</div><div class="pill">In testing</div><div class="pill">Free</div>
+    <p style="margin-top:18px">yt-pub-x3 · free at inema.club, online ·
+      <a href="https://github.com/inematds/yt-pub-x3">inematds/yt-pub-x3</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='yt-pub-x3-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    try{ if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; } }catch(e){}
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      try{ localStorage.setItem(KEY, light?'light':'dark'); }catch(e){}
+    });
+  })();
+  (function(){
+    var bt=document.getElementById('copiarPedido'), tx=document.getElementById('pedidoTxt');
+    if(!bt||!tx) return;
+    bt.addEventListener('click',function(){
+      try{ navigator.clipboard.writeText(tx.textContent).then(function(){ bt.textContent='Copied ✓'; setTimeout(function(){bt.textContent='Copy the prompt';},2000); }); }catch(e){}
+    });
+  })();
+</script>
+</body>
+</html>

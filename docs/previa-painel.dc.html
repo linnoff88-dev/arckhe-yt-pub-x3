@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>YT-Pub X3 Master</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--text:#e4e4e7;--muted:#a1a1aa;--accent:#818cf8;--acc2:#6366f1;--green:#4ade80;--yellow:#eab308;--red:#f87171;--blue:#60a5fa;--pink:#f472b6;--violet:#a78bfa}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.4}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{margin:0;line-height:1.2}
+.wrap{max-width:1800px;margin:0 auto;padding:18px 16px 40px}
+header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-bottom:14px}
+header h1{font-size:22px;font-weight:700}
+header h1 span{color:var(--accent)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+.badge{padding:4px 10px;border-radius:999px;border:1px solid var(--border);background:var(--card)}
+.badge.p{color:var(--yellow);border-color:rgba(234,179,8,.4)}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.s{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.s b{display:block;font-size:24px;font-weight:700}
+.s span{color:var(--muted);font-size:13px}
+.green{color:var(--green)}.yellow{color:var(--yellow)}.red{color:var(--red)}.blue{color:var(--blue)}.pink{color:var(--pink)}.violet{color:var(--violet)}.mut{color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.f{min-height:38px;padding:4px 12px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--muted)}
+.f.on{background:var(--acc2);border-color:var(--acc2);color:#fff;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,390px),1fr));gap:12px}
+.inst{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:8px;padding:12px;min-width:0}
+.inst.warn{border-left-color:var(--yellow)}.inst.bad{border-left-color:var(--red)}.inst.off{border-left-color:#52525b}
+.ih{display:flex;gap:8px;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.ih h2{font-size:16px;font-weight:700}
+.ih small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:var(--green)}
+.dot.warn{background:var(--yellow)}.dot.bad{background:var(--red)}.dot.off{background:#71717a}
+.tag{flex:none;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.06)}
+.pipes{display:flex;gap:8px;margin-bottom:10px}
+.pipe{flex:1;min-width:0;border-radius:6px;padding:8px 10px;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.18)}
+.pipe.rs{background:rgba(244,114,182,.06);border-color:rgba(244,114,182,.2)}
+.pt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.pn{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.pn b{font-size:20px}
+.pn span{font-size:13px;font-weight:700;color:var(--yellow)}
+.pl{font-size:13px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.pl strong{color:var(--text);font-weight:600}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:8px}
+th{color:var(--muted);font-weight:500;text-align:right;padding:2px 5px}
+td{text-align:right;padding:2px 5px;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}
+.chart{background:rgba(255,255,255,.03);border-radius:6px;padding:6px 8px;margin-bottom:8px}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;color:var(--muted);font-size:13px}
+.ct{display:flex;gap:3px}
+.cb{min-width:38px;min-height:30px;padding:1px 6px;font-size:12px;border:0;border-radius:4px;background:rgba(255,255,255,.08);color:var(--muted)}
+.cb.on{background:var(--acc2);color:#fff}
+svg{display:block;width:100%;height:58px}
+.cf{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:2px}
+.open{width:100%;min-height:40px;background:rgba(99,102,241,.16);border:1px solid rgba(129,140,248,.4);border-radius:6px;font-weight:600;color:#c7d2fe}
+.open:hover{background:rgba(99,102,241,.3)}
+.back{min-height:40px;padding:4px 14px;background:var(--card);border:1px solid var(--border);border-radius:6px;margin-bottom:12px}
+.dt{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;margin-bottom:10px}
+.dt h2{font-size:21px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.t{min-height:44px;padding:6px 18px;background:transparent;border:0;border-bottom:2px solid transparent;color:var(--muted);font-weight:600}
+.t.on{color:var(--text);border-bottom-color:var(--accent)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between}
+.hs{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.h{font-size:13px;font-variant-numeric:tabular-nums;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.07)}
+.fit{margin:8px 0 0;color:var(--muted)}
+.fit.no{color:var(--red)}
+.sw{min-height:42px;min-width:116px;padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:rgba(255,255,255,.05);font-weight:600}
+.sw.on{background:#166534;border-color:#22c55e;color:#dcfce7}
+.conns{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.conn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.conn h3{font-size:15px}.conn p{margin:0;color:var(--muted)}.conn .st2{color:var(--text);font-weight:600}
+.conn .sw{margin-top:6px;width:100%}
+.sec{font-size:15px;font-weight:700;margin:14px 0 8px}
+.vs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,430px),1fr));gap:10px}
+.v{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;min-width:0}
+.v h3{font-size:14.5px;font-weight:600}
+.v .m{color:var(--muted);font-size:13px}
+.ds{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:8px}
+.d{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:6px;padding:8px}
+.n{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+.st{font-weight:700;margin-top:1px}
+.st.ok{color:var(--green)}.st.err{color:var(--red)}.st.wait{color:var(--yellow)}.st.pause,.st.skip{color:var(--muted)}
+.why{font-size:13px;color:var(--muted)}
+.as{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.a{min-height:38px;padding:2px 10px;background:transparent;border:1px solid #3f3f50;border-radius:5px;font-size:13px}
+.a:hover{border-color:var(--accent)}
+.note{color:var(--muted);font-size:13px;margin:12px 0 0}
+.links{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.lk{display:inline-flex;align-items:center;min-height:34px;padding:3px 9px;border:1px solid var(--border);border-radius:5px;background:rgba(255,255,255,.04);color:#c7d2fe;font-size:13px;text-decoration:none}
+.lk:hover{border-color:var(--accent);color:#fff}
+.pipe.cut{background:rgba(96,165,250,.07);border-color:rgba(96,165,250,.25);margin-bottom:10px}
+</style>
+</helmet>
+<div class="wrap">
+  <header>
+    <h1><span>YT-Pub</span> X3 Master</h1>
+    <div class="meta">
+      <span class="badge p">Prévia: os botões não publicam nada</span>
+      <span class="badge">1 processo · 1 painel</span>
+      <span>Dados de 18/11 00:33</span>
+    </div>
+  </header>
+
+  <div class="sum">
+    <div class="s"><b>{{total}}</b><span>Canais</span></div>
+    <div class="s"><b class="green">{{pub24}}</b><span>Publicados em 24 h</span></div>
+    <div class="s"><b class="yellow">{{filaT}}</b><span>Na fila de imports</span></div>
+    <div class="s"><b class="pink">{{comRs}}</b><span>Canais com RS</span></div>
+    <div class="s"><b class="red">{{naoCabem}}</b><span>Não cabem nos horários</span></div>
+    <div class="s"><b class="mut">{{pausados}}</b><span>Imports pausados</span></div>
+    <div class="s"><b class="red">{{errT}}</b><span>Erros de import (histórico)</span></div>
+  </div>
+
+  <sc-if value="{{semSel}}" hint-placeholder-val="{{true}}">
+    <div class="filters">
+      <sc-for list="{{filtros}}" as="f" hint-placeholder-count="4">
+        <button type="button" class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}}</button>
+      </sc-for>
+    </div>
+    <div class="grid">
+      <sc-for list="{{lista}}" as="c" hint-placeholder-count="6">
+        <div class="{{c.cardCls}}">
+          <div class="ih">
+            <div>
+              <h2><span class="{{c.dotCls}}"></span>{{c.id}} <span class="green" style="font-size:13px">{{c.p24}} em 24 h</span></h2>
+              <small>{{c.titulo}}</small>
+            </div>
+            <span class="tag">{{c.estado}}</span>
+          </div>
+          <div class="links"><sc-for list="{{c.links}}" as="k" hint-placeholder-count="3"><a class="lk" href="{{k.u}}" target="_blank" rel="noopener" aria-label="{{k.aria}}">{{k.l}} ↗</a></sc-for></div>
+          <div class="pipes">
+            <div class="pipe">
+              <div class="pt green">Import YT</div>
+              <div class="pn"><b class="green">{{c.p24}}</b><span>{{c.prev}}/dia</span></div>
+              <div class="pl">Próx: <strong>{{c.prox}}</strong></div>
+              <div class="pl">Total: <strong>{{c.totPub}}</strong></div>
+            </div>
+            <div class="pipe rs">
+              <div class="pt pink">RS</div>
+              <div class="pn"><b class="pink">{{c.rsDia}}</b><span>{{c.rsPend}}</span></div>
+              <div class="pl"><strong>{{c.rsNome}}</strong></div>
+              <div class="pl">{{c.rsRede}}</div>
+            </div>
+          </div>
+          <sc-if value="{{c.corteOn}}" hint-placeholder-val="{{false}}">
+            <div class="pipe cut">
+              <div class="pt blue">Cortes de lives · ativo</div>
+              <div class="pn"><b class="blue">{{c.cut.h24}}</b><span>1/dia</span></div>
+              <div class="pl">Próx: <strong>{{c.cut.prox}}</strong> · Último: <strong>{{c.cut.ult}}</strong></div>
+              <div class="pl">{{c.cut.ok}} lives cortadas · {{c.cut.pe}} pendente · {{c.cut.er}} erros · {{c.cut.clips}} clips</div>
+            </div>
+          </sc-if>
+          <div class="tw"><table>
+            <thead><tr><th scope="col">Origem</th><th scope="col">Total</th><th scope="col">Pend</th><th scope="col">Pub</th><th scope="col">Erros</th><th scope="col">24h</th></tr></thead>
+            <tbody>
+              <sc-for list="{{c.linhas}}" as="l" hint-placeholder-count="4">
+                <tr><td class="{{l.cor}}">{{l.n}}</td><td>{{l.a}}</td><td class="yellow">{{l.b}}</td><td class="green">{{l.c}}</td><td class="{{l.eCls}}">{{l.d}}</td><td class="blue">{{l.e}}</td></tr>
+              </sc-for>
+            </tbody>
+          </table></div>
+          <div class="chart">
+            <div class="ch"><span>Publicações no YouTube</span>
+              <div class="ct"><sc-for list="{{c.periodos}}" as="p" hint-placeholder-count="3"><button type="button" class="{{p.cls}}" aria-pressed="{{p.on}}" onClick="{{p.pick}}">{{p.l}}</button></sc-for></div>
+            </div>
+            <svg viewBox="0 0 320 60" preserveAspectRatio="none" role="img" aria-label="{{c.aria}}">
+              <polygon points="{{c.area}}" fill="rgba(74,222,128,.12)"></polygon>
+              <polyline points="{{c.pts}}" fill="none" stroke="#4ade80" stroke-width="1.5" vector-effect="non-scaling-stroke"></polyline>
+            </svg>
+            <div class="cf"><span>{{c.ini}}</span><span>pico {{c.max}} · soma {{c.soma}}</span><span>17/11</span></div>
+          </div>
+          <button type="button" class="open" onClick="{{c.pick}}">Abrir canal</button>
+        </div>
+      </sc-for>
+    </div>
+    <p class="note">Metricool: números por marca, de 15 a 17/11. Canais da mesma marca mostram o mesmo total. Pend = posts já agendados.</p>
+  </sc-if>
+
+  <sc-if value="{{comSel}}" hint-placeholder-val="{{false}}">
+    <button type="button" class="back" onClick="{{voltar}}">‹ Todos os canais</button>
+    <div class="dt"><h2>{{sel.id}} · {{sel.titulo}}</h2><span class="tag">{{sel.estado}}</span></div>
+    <div class="links"><sc-for list="{{selLinks}}" as="k" hint-placeholder-count="3"><a class="lk" href="{{k.u}}" target="_blank" rel="noopener" aria-label="{{k.aria}}">{{k.l}} ↗</a></sc-for></div>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" class="{{tabYt}}" aria-selected="{{isYt}}" onClick="{{goYt}}">Import YT</button>
+      <button type="button" role="tab" class="{{tabRs}}" aria-selected="{{isRs}}" onClick="{{goRs}}">RS</button>
+      <button type="button" role="tab" class="{{tabCut}}" aria-selected="{{isCut}}" onClick="{{goCut}}">Cortes</button>
+    </div>
+    <sc-if value="{{isYt}}" hint-placeholder-val="{{true}}">
+      <div class="box">
+        <div class="row">
+          <div><div class="mut">Publicação no YouTube</div><strong>{{ytTxt}}</strong></div>
+          <button type="button" class="{{ytCls}}" aria-pressed="{{ytOn}}" onClick="{{toggleYt}}">{{ytBtn}}</button>
+        </div>
+        <div class="hs"><sc-for list="{{sel.horas}}" as="h" hint-placeholder-count="4"><span class="h">{{h}}</span></sc-for></div>
+        <p class="{{fitCls}}">{{fitTxt}}</p>
+        <p class="fit">Na fila de imports agora: {{sel.fila}}.</p>
+        <p class="fit">Capa: feita pelo Codex quando o YouTube permite. Short não leva capa.</p>
+      </div>
+    </sc-if>
+    <sc-if value="{{isRs}}" hint-placeholder-val="{{false}}">
+      <div class="conns">
+        <div class="conn">
+          <h3>Metricool</h3><p class="st2">{{metTitulo}}</p><p>{{metInfo}}</p>
+          <sc-if value="{{temMarca}}" hint-placeholder-val="{{true}}"><button type="button" class="{{rsCls}}" aria-pressed="{{rsOn}}" onClick="{{toggleRs}}">{{rsBtn}}</button></sc-if>
+        </div>
+        <div class="conn"><h3>Blotato</h3><p class="st2">Falta conectar</p><p>Precisa de conta e chave. O conector ainda será construído.</p></div>
+        <div class="conn"><h3>Upload-Post</h3><p class="st2">Desligado</p><p>O conector do yt-pub-livesx2 pode ser aproveitado.</p></div>
+      </div>
+      <p class="fit">Horário das redes: o mesmo do Import YT, com pelo menos 1 h entre posts da mesma marca.</p>
+    </sc-if>
+    <sc-if value="{{isCut}}" hint-placeholder-val="{{false}}">
+      <div class="box">
+        <div class="mut">Cortes de lives</div><strong>{{selCut.titulo}}</strong>
+        <p class="fit">{{selCut.info}}</p>
+        <sc-if value="{{selCut.tem}}" hint-placeholder-val="{{false}}">
+          <div class="hs"><sc-for list="{{selCut.horas}}" as="h" hint-placeholder-count="3"><span class="h">{{h}}</span></sc-for></div>
+          <p class="fit">{{selCut.ok}} lives cortadas de {{selCut.t}} · {{selCut.pe}} pendentes · {{selCut.er}} erros · {{selCut.clips}} clips gerados.</p>
+        </sc-if>
+      </div>
+    </sc-if>
+    <div class="sec">Vídeos do canal</div>
+    <sc-if value="{{temVideos}}" hint-placeholder-val="{{true}}">
+      <div class="vs">
+        <sc-for list="{{videos}}" as="v" hint-placeholder-count="4">
+          <div class="v">
+            <h3>{{v.t}}</h3><div class="m">{{v.f}}</div>
+            <div class="ds">
+              <sc-for list="{{v.ds}}" as="d" hint-placeholder-count="2">
+                <div class="d">
+                  <div class="n">{{d.nome}}</div><div class="{{d.cls}}">{{d.label}}</div><div class="why">{{d.why}}</div>
+                  <div class="as"><sc-for list="{{d.acoes}}" as="x" hint-placeholder-count="2"><button type="button" class="a" aria-label="{{x.aria}}" onClick="{{x.go}}">{{x.label}}</button></sc-for></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{semVideos}}" hint-placeholder-val="{{false}}">
+      <div class="box mut">Nesta prévia, a lista de vídeos está em lives3, lives4, lives7, lives12 e lives31. Nos outros canais, ela aparece quando o canal migrar.</div>
+    </sc-if>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>
+class Component extends DCLogic {
+  dados() {
+    if (this._d) return this._d;
+    const M = {
+      FTD:{n:'FTD',r:'Instagram + TikTok inema.tech',c:'inematds',p:[5,3,3],pend:4,err:1,b:7908265,ig:'inema.tech',tt:'inema.tech'},
+      TDS:{n:'inema.tds',r:'Instagram + TikTok inema.tds',c:'inematds',p:[6,2,3],pend:4,err:0,b:7797870,ig:'inema.tds',tt:'inema.tds'},
+      VIBE:{n:'VIBE',r:'TikTok inema.prompts',c:'inematds',p:[2,1,1],pend:4,err:0,b:8026101,tt:'inema.prompts'},
+      EV:{n:'eventosextremos',r:'Instagram + TikTok eventos.extremos',c:'inematds',p:[3,9,6],pend:0,err:0,b:7800440,ig:'eventos.extremos',tt:'eventos.extremos'},
+      RAD:{n:'Radar',r:'Instagram + TikTok inema.club24',c:'inematds',p:[4,1,3],pend:4,err:0,b:7999284,ig:'inema.club24',tt:'inema.club24'},
+      FUT:{n:'inemafuturos',r:'Instagram + TikTok @inemafuturos',c:'inemafuturos',p:null,pend:0,err:0,b:7577386,ig:'inemafuturos',tt:'inemafuturos'}
+    };
+    const N = [{"id":"lives1","i":[443,0,441,3,0],"t":[24,3,24,0,0],"c":[2455,8,2181,86,3],"y":[154,0,6],"h":[13,9,13,17,5,6,5,5,5,0,0,5,5,0,0,5,8,7,15,5,14,5,11,11,9,4,9,12,9,0]},{"id":"lives2","i":[672,0,542,145,0],"t":[941,0,1092,10,0],"c":[2126,9,909,5,0],"y":[121,0,5],"h":[2,2,2,2,4,0,2,3,4,5,5,8,9,0,0,0,4,5,6,10,4,4,0,3,3,5,9,3,5,0]},{"id":"lives3","i":[903,5,1085,82,0],"t":[90,0,96,1,0],"c":[1298,123,1068,81,0],"y":[160,0,4],"h":[8,15,3,5,6,4,4,5,7,0,0,5,2,0,0,3,4,23,16,14,15,12,8,15,21,8,10,6,4,0]},{"id":"lives4","i":[587,0,543,65,0],"t":[155,0,155,0,0],"c":[490,0,438,0,0],"y":[144,0,8],"h":[2,3,8,20,6,7,7,9,5,0,0,5,4,0,0,10,8,7,7,7,7,7,8,3,10,5,12,5,9,0]},{"id":"lives5","i":[141,99,280,73,0],"t":[42,0,42,0,0],"c":[720,0,134,0,0],"y":[0,0,0],"h":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"id":"lives6","i":[758,0,1067,70,0],"t":[93,0,93,0,0],"c":[545,0,468,23,0],"y":[37,0,1],"h":[2,7,2,2,2,2,2,8,2,0,0,7,4,0,0,3,7,5,7,0,0,1,0,0,1,0,9,4,1,0]},{"id":"lives7","i":[601,0,540,61,0],"t":[19,0,19,0,0],"c":[702,0,558,61,0],"y":[77,0,3],"h":[2,2,2,8,2,2,3,4,16,0,0,5,1,0,0,1,8,6,3,2,2,3,10,6,12,4,7,6,3,0]},{"id":"lives8","i":[664,31,566,65,1],"t":[132,0,129,0,0],"c":[560,0,443,36,0],"y":[66,0,4],"h":[5,3,8,4,9,2,2,5,2,2,3,2,2,0,0,0,3,2,2,2,2,2,10,3,6,2,7,6,5,0]},{"id":"lives9","i":[688,11,634,58,2],"t":[39,0,38,0,0],"c":[387,6,260,7,0],"y":[12,0,3],"h":[2,2,2,4,2,2,2,2,2,0,0,2,1,0,0,2,2,2,1,2,2,2,2,2,2,0,6,5,5,0]},{"id":"lives10","i":[406,0,367,39,0],"t":[0,0,0,0,0],"c":[453,277,176,0,0],"y":[212,6,10],"h":[4,13,4,4,3,2,3,5,4,0,0,2,2,0,0,3,9,8,6,5,5,6,8,5,8,6,4,8,10,4]},{"id":"lives11","i":[710,2,618,90,0],"t":[2,0,2,0,0],"c":[1600,25,163,0,0],"y":[89,0,4],"h":[2,4,7,2,0,6,0,3,7,3,0,2,5,0,0,1,2,0,0,3,2,0,10,3,5,3,5,9,4,0]},{"id":"lives12","i":[0,0,0,0,0],"t":[76,0,46,30,0],"c":[662,602,49,11,3],"y":[31,0,3],"h":[1,1,1,1,2,0,1,3,3,3,3,3,2,0,0,0,0,0,1,3,3,3,3,3,3,1,7,6,6,0]},{"id":"lives22","i":[241,13,156,73,2],"t":[0,0,0,0,0],"c":[0,0,0,0,0],"y":[10,0,3],"h":[0,1,2,2,2,2,2,2,1,0,0,2,1,0,0,1,2,2,1,2,2,2,2,2,2,1,6,5,5,0]},{"id":"lives23","i":[231,35,134,62,2],"t":[0,0,0,0,0],"c":[0,0,0,0,0],"y":[10,0,3],"h":[2,2,2,2,2,2,0,2,2,2,2,2,2,0,0,0,2,2,2,2,2,2,2,2,2,1,6,5,5,0]},{"id":"lives24","i":[176,0,86,90,0],"t":[0,0,0,0,0],"c":[0,0,0,0,0],"y":[51,0,5],"h":[0,0,0,0,0,0,0,1,1,2,2,3,4,0,0,0,1,2,2,2,1,4,6,2,2,0,6,5,5,0]},{"id":"lives25","i":[0,0,0,0,0],"t":[0,0,0,0,0],"c":[0,0,0,0,0],"y":[0,0,0],"h":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"id":"lives26","i":[624,552,61,11,3],"t":[0,0,0,0,0],"c":[0,0,0,0,0],"y":[0,0,0],"h":[0,2,0,2,1,0,3,3,3,3,3,3,1,0,0,2,2,3,3,3,3,3,2,3,3,1,3,3,3,0]},{"id":"lives31","i":[214,0,103,111,0],"t":[0,0,0,0,0],"c":[0,0,0,0,0],"y":[9,0,2],"h":[3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,3,2,0]},{"id":"lives32","i":[0,0,0,52,0],"t":[0,0,0,0,0],"c":[0,0,0,0,0],"y":[0,0,0],"h":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}];
+    const byId = {}; N.forEach(n => byId[n.id] = n);
+    const Y = 'https://www.youtube.com/', Z = Y + 'channel/';
+    const U = { lives1:Y+'@inematdsx', lives2:Y+'@InemaTIA', lives3:Y+'@INEMAFTD', lives4:Y+'@inematec', lives5:Z+'UC6veniB9NG0y11ObXV9Dh5A', lives6:Z+'UCZ5fAkd2Z9PB3sHKbRKEYeQ', lives7:Z+'UCKBiylp-fueqbKiq7FqrM6g', lives8:Z+'UCJxL11aomXJiBZga-JXylgQ', lives9:Z+'UCcvslL6rtKr5tH3C72FTPXg', lives10:Y+'@eventosextremos-inema', lives11:Z+'UCx3T2Ltl8-gsiIytjNZ306w', lives12:Y+'@InemaPro', lives22:Z+'UCqJjjPlq7IlBR9_xHRLErkA', lives23:Z+'UCIa6U7WTz5VWQMv5ZAVAlrw', lives24:Z+'UC3vxpzIJyPl2WraCBCZ07JA', lives31:Z+'UCKLyMc7j7Ti1kh-KzHNl0Aw' };
+    const K = { lives1:[334,1,303,27,0,'16/11 04:03',2455,'01:35,02:35,03:35,04:35'], lives2:[302,0,293,8,0,'15/08 11:20',2126,'03:20,05:20'], lives3:[107,0,101,6,0,'16/05 04:11',1298,'01:10,02:10,03:10,04:10'], lives4:[89,0,85,3,0,'15/08 08:40',490,'02:40,04:40,06:40'], lives5:[88,5,83,0,0,'21/04 03:12',720,'02:10,03:10,04:10,05:10'], lives6:[68,0,64,3,0,'12/06 03:00',545,'01:00,02:00,03:00'], lives7:[75,0,72,2,0,'26/07 02:45',702,'02:45,04:45,06:45'], lives8:[81,0,79,2,0,'16/05 03:54',560,'03:50,04:50'], lives9:[50,0,50,0,0,'30/06 04:02',387,'04:00'], lives10:[9,0,9,0,0,'20/04 02:11',453,'02:00'], lives11:[199,0,191,6,0,'15/08 06:00',1600,'01:00,02:00,03:00,04:00,05:00,06:00'], lives12:[26,0,26,0,0,'20/04 05:13',662,'02:10,03:10,04:10,05:10'] };
+    const C = [
+      ['lives1','INEMA TDS','07:00,10:00,12:00,16:00,20:00',33,false,null,'Saiu do Metricool em 17/11, a seu pedido.'],
+      ['lives2','INEMA TIA','07:10,09:10,11:10,14:10,16:10,18:10,20:10,22:10',28,true,M.RAD],
+      ['lives3','INEMA FTD','09:20,13:20,16:20,19:20',54,false,M.FTD],
+      ['lives4','INEMA Tec','08:00,11:00,12:00,15:00,18:00',52,false,M.TDS],
+      ['lives5','INEMA PROMPTS','10:40,14:40,18:40',0,true,null],
+      ['lives6','INEMA Robot','07:40,11:40,14:40,17:40,20:40',15,false,null],
+      ['lives7','INEMA LOOPY','07:00,10:00,13:00,17:00,20:00',29,false,M.VIBE],
+      ['lives8','Inema Vibe','09:15,13:15',27,false,M.VIBE],
+      ['lives9','Inema Vip','11:10,17:10',10,false,null],
+      ['lives10','INEMA Agentes','01:15,02:15,03:15,04:15,05:15,06:15,07:15,08:15,09:15,12:15,16:15,20:15',55,false,M.EV],
+      ['lives11','INEMA Futuros','09:40,15:40,21:40',39,false,M.FUT],
+      ['lives12','Inema Pro','10:40,14:40,19:40',10,false,M.TDS],
+      ['lives22','Inema Club22','10:10,18:10',10,false,null],
+      ['lives23','Inema Club23','07:40,14:40',10,false,null],
+      ['lives24','Inema Club24','07:00,12:00,18:00',26,false,M.RAD],
+      ['lives25','Sem nome salvo','',0,false,null],
+      ['lives26','Sem nome salvo','11:30,17:30,20:30',0,false,null],
+      ['lives31','Inema Club 31','07:00,11:00,16:00',9,false,M.FTD],
+      ['lives32','Sem nome salvo','07:00,11:00,16:00,20:00',0,false,null]
+    ].map(r => {
+      const horas = r[2] ? r[2].split(',') : [], vagas = horas.length * 7, x = byId[r[0]], estoura = r[3] > vagas;
+      const p24 = x.i[4] + x.t[4] + x.c[4] + x.y[2], totPub = x.i[2] + x.t[2] + x.c[2] + x.y[0];
+      const nv = r[4] ? 'off' : !horas.length ? 'off' : estoura ? 'bad' : x.i[1] > 30 ? 'warn' : 'ok';
+      const estado = r[4] ? 'Pausado' : !horas.length ? 'Sem horário' : estoura ? 'Não cabe' : x.i[1] > 30 ? 'Fila cheia' : 'Normal';
+      return { id:r[0], titulo:r[1], horas, sem:r[3], paus:r[4], m:r[5], nota:r[6]||'', vagas, estoura, x, p24, totPub, nv, estado, fila:x.i[1], url:U[r[0]]||'', k:K[r[0]]||null };
+    });
+    const fora = 'Ficou de fora: era agendado';
+    const v = (id,t,f,y,rs,rw) => ({ id, t, f, yt:['ok','Publicado '+y], rs:[rs||'wait', rw||fora] });
+    const V = {
+      lives3:[v('58yr','Sua IA só conversa. Você se afoga','9:16','17/11 07:09','err','Conta ou conector não confirmado'),v('6I9x','Qual tarefa passar pra IA primeiro?','9:16 · 56 s','17/11 16:00'),v('v5g6','Do chat ao agente: escolha comigo…','9:16 · 51 s','17/11 12:00'),v('HlZT','Meu assistente no Telegram só diz pronto…','9:16 · 54 s','17/11 08:00'),v('a2mN','Saia do chat: aprenda IA de graça…','9:16 · 51 s','16/11 22:26'),v('K3pT','Meu Jarvis fala comigo com a minha voz…','9:16 · 57 s','16/11 21:55')],
+      lives4:[v('paEN','IA falando com seu cliente sozinha?','9:16 · 54 s','17/11 16:00'),v('7yLR','Você virou o estagiário do seu perfil?','9:16 · 55 s','17/11 12:00'),v('AR2v','Enxame de agentes pode quebrar sua empresa','9:16','17/11 09:00','ok','Publicado 17/11 09:10'),v('iDe_','A IA pega o atalho. Mude o caminho…','9:16 · 179 s','17/11 08:10'),v('QDpM','Meu Jarvis dá bom dia e mostra tudo…','9:16 · 55 s','17/11 08:00'),v('8GDr','A IA estraga seu projeto? Caminho curto…','16:9 · 179 s','17/11 07:10','skip','Formato 16:9 não vai para Reels e TikTok'),v('jIk3','O agente diz pronto. Quem confere é você…','9:16 · 176 s','17/11 06:06'),v('V-7f','Ela acorda com o trabalho pronto…','16:9 · 194 s','17/11 05:01','skip','Formato 16:9 e mais de 3 minutos'),v('aYp5','O trabalho de escritório vai acabar','9:16 · 56 s','17/11 00:04','ok','Publicado 17/11 01:14'),v('-kD2','Seu medo do terminal deixa sua IA parada…','9:16 · 54 s','16/11 22:27'),v('_h39','Crie seu Jarvis em 6 etapas gratuitas…','9:16 · 53 s','16/11 21:57')],
+      lives7:[v('ZSXx','Deixe a IA conduzir a tarefa…','9:16 · 57 s','17/11 16:00'),v('csCk','Montar o agente é fácil. Difícil é…','9:16 · 53 s','17/11 12:00'),v('XG1p','Seu Jarvis pode melhorar toda semana…','9:16 · 55 s','17/11 08:00'),v('VSq7','Suas publicações só saem quando você…','9:16 · 54 s','16/11 22:28'),v('QaQ7','Seu agente de IA grátis no PC…','9:16 · 54 s','16/11 21:58')],
+      lives12:[v('FC5r','5 níveis de IA para responder um e-mail…','9:16 · 55 s','17/11 16:00'),v('v-Y8','Seu Jarvis ligado no primeiro dia…','9:16 · 55 s','17/11 12:00'),v('C5D_','Você ainda digita pra IA?…','9:16 · 57 s','17/11 08:00'),v('P2J4','Você tem IA, mas nenhum agente…','9:16 · 52 s','16/11 22:30'),v('WDY2','Sua IA errou feio? Desça um nível…','9:16 · 55 s','16/11 21:44')],
+      lives31:[v('3hQY','Seu cliente esperou resposta e foi embora…','9:16 · 53 s','17/11 12:00'),v('Kt0U','Meu agente de IA tem 87 linhas…','9:16 · 56 s','17/11 08:00'),v('Nj1c','Se o chat cair amanhã, o que sobra…','9:16 · 54 s','16/11 22:44'),v('8fv-','Seu Jarvis travou? Siga estas 6 etapas…','9:16 · 56 s','16/11 22:03')]
+    };
+    this._d = { C, V };
+    return this._d;
+  }
+
+  links(c) {
+    const a = [], m = c.m, add = (l,u) => a.push({ l, u, aria:'Abrir '+l+' de '+c.id+' em nova aba' });
+    if (c.url) add('YouTube', c.url);
+    if (m) {
+      add('Metricool '+m.n, 'https://app.metricool.com/planner/calendar?blogId='+m.b);
+      if (m.ig) add('Instagram', 'https://www.instagram.com/'+m.ig+'/');
+      if (m.tt) add('TikTok', 'https://www.tiktok.com/@'+m.tt);
+    }
+    return a;
+  }
+
+  corte(c) {
+    const k = c.k;
+    if (!k) return { tem:false, titulo:'Sem cortes', info:'Este canal não tem lives para cortar.', horas:[] };
+    const horas = k[7].split(','), ativo = c.id === 'lives1';
+    const base = { tem:true, t:k[0], pe:k[1], ok:k[2], er:k[3], h24:k[4], ult:k[5], clips:k[6], horas, prox:this.proximo(horas) };
+    if (ativo) return { ...base, titulo:'Ativo: até 1 live por dia', info:'Próximo horário: '+base.prox+'. Último corte: '+k[5]+'. Os clipes prontos entram na fila deste canal.' };
+    if (c.id === 'lives11') return { ...base, titulo:'Parado', info:'Não está pausado na configuração, mas o último corte foi em '+k[5]+'.' };
+    return { ...base, titulo:'Desligado', info:'Último corte: '+k[5]+'.' };
+  }
+
+  proximo(h) {
+    if (!h.length) return 'sem horário';
+    const d = new Date(), a = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    return h.find(x => x > a) || ('amanhã ' + h[0]);
+  }
+
+  grafico(c, dias) {
+    const a = c.x.h.slice(0, 29).slice(-dias), max = Math.max(1, ...a), W = 320, H = 60;
+    const st = W / Math.max(1, a.length - 1);
+    const pts = a.map((n, i) => (i * st).toFixed(1) + ',' + (H - 4 - (n / max) * (H - 10)).toFixed(1)).join(' ');
+    const ini = new Date(2026, 10, 17 - dias + 1);
+    return { pts, area:'0,' + H + ' ' + pts + ' ' + W + ',' + H, max:Math.max(...a), soma:a.reduce((x,y)=>x+y,0),
+      ini:String(ini.getDate()).padStart(2,'0') + '/' + String(ini.getMonth()+1).padStart(2,'0') };
+  }
+
+  renderVals() {
+    const { C, V } = this.dados();
+    const s = this.state || {}, set = o => this.setState(o);
+    const selId = s.sel || null, tab = s.tab || 'yt', filtro = s.filtro || 'todos';
+    const st = s.st || {}, ytMap = s.yt || {}, rsMap = s.rs || {}, per = s.per || {};
+    const FS = [['todos','Todos',()=>true],['rs','Com RS',c=>!!c.m],['nao','Não cabem',c=>c.estoura],['fila','Fila cheia',c=>c.fila>30],['pausa','Pausados',c=>c.paus]];
+    const filtros = FS.map(f => ({ label:f[1], on:filtro===f[0], cls:'f'+(filtro===f[0]?' on':''), pick:()=>set({filtro:f[0]}) }));
+    const regra = FS.find(f => f[0]===filtro)[2];
+    const linha = (n,cor,r) => ({ n, cor, a:r[0], b:r[1], c:r[2], d:r[3], e:r[4], eCls:r[3]>0?'red':'mut' });
+    const lista = C.filter(regra).map(c => {
+      const d = per[c.id] || 14, g = this.grafico(c, d), m = c.m, x = c.x;
+      const linhas = [linha('Clips','',x.c), linha('Imports','violet',x.i),
+        { n:'yt-pubx', cor:'blue', a:x.y[0], b:x.y[1], c:x.y[0], d:'–', e:x.y[2], eCls:'mut' }];
+      if (c.k) linhas.unshift({ n:'Lives', cor:'blue', a:c.k[0], b:c.k[1], c:c.k[2], d:c.k[3], e:c.k[4], eCls:c.k[3]>0?'red':'mut' });
+      if (m && m.p) { const pub = m.p[0]+m.p[1]+m.p[2]; linhas.push({ n:'Metricool', cor:'pink', a:pub+m.pend, b:m.pend, c:pub, d:m.err, e:m.p[2], eCls:m.err?'red':'mut' }); }
+      return { ...c, ...g, linhas, links:this.links(c), corteOn:c.id==='lives1', cut:this.corte(c), dotCls:'dot'+(c.nv==='ok'?'':' '+c.nv), cardCls:'inst'+(c.nv==='ok'?'':' '+c.nv),
+        prev:c.horas.length, prox:c.paus?'pausado':this.proximo(c.horas), pick:()=>set({sel:c.id,tab:'yt'}),
+        rsDia:m&&m.p?m.p[2]:'–', rsPend:m&&m.p?m.pend+' agend.':'', rsNome:m?m.n:'Sem RS', rsRede:m?(m.p?m.r:'Outra conta do Metricool'):(c.nota||'Nenhuma marca definida'),
+        aria:'Publicações de '+c.id+' em '+d+' dias: soma '+g.soma+', pico '+g.max,
+        periodos:[7,14,29].map(n => ({ l:(n===29?30:n)+'d', on:d===n, cls:'cb'+(d===n?' on':''), pick:()=>set({per:{...per,[c.id]:n}}) })) };
+    });
+    const soma = f => C.reduce((a,c)=>a+f(c),0);
+    const base = { total:C.length, pub24:soma(c=>c.p24), filaT:soma(c=>c.fila), comRs:C.filter(c=>c.m).length, naoCabem:C.filter(c=>c.estoura).length, pausados:C.filter(c=>c.paus).length, errT:soma(c=>c.x.i[3]), filtros, lista, semSel:!selId, comSel:!!selId, voltar:()=>set({sel:null}) };
+    const sel = C.find(c => c.id===selId) || C[3];
+    const ytOn = ytMap[sel.id] !== undefined ? ytMap[sel.id] : !sel.paus;
+    const rsOn = rsMap[sel.id] !== undefined ? rsMap[sel.id] : true;
+    const LAB = { ok:'Feito', wait:'Aguardando', pause:'Pausado', err:'Erro', skip:'Ignorado' };
+    const muda = (k,val) => () => set({ st:{...st,[k]:val} });
+    const dest = (v,key,nome,b) => {
+      const k = sel.id+':'+v.id+':'+key, cur = st[k]||b[0], mudou = !!st[k] && st[k]!==b[0];
+      const why = mudou ? (cur==='wait'?'Volta no próximo horário':cur==='pause'?'Parado até você retomar':'Você pulou este destino') : b[1];
+      let acoes = [];
+      if (cur==='wait') acoes=[['Pausar','pause'],['Pular','skip']];
+      if (cur==='pause') acoes=[['Retomar','wait'],['Pular','skip']];
+      if (cur==='err') acoes=[['Reenviar','wait'],['Pular','skip']];
+      if (cur==='skip'&&mudou) acoes=[['Voltar para a fila','wait']];
+      return { nome, label:LAB[cur], cls:'st '+cur, why, acoes:acoes.map(a=>({ label:a[0], aria:a[0]+' em '+nome+': '+v.t, go:muda(k,a[1]) })) };
+    };
+    const rsNome = sel.m ? 'RS · '+sel.m.n : 'RS';
+    const videos = (V[sel.id]||[]).map(v => ({ ...v, ds:[dest(v,'yt','YouTube',v.yt), dest(v,'rs',rsNome,v.rs)] }));
+    const n = sel.horas.length;
+    const fitTxt = !n ? 'Este canal ainda não tem horário de import.' : (sel.estoura?'Não cabe: chegaram ':'Cabe: chegaram ')+sel.sem+' vídeos em 7 dias, e os '+n+(n===1?' horário dão ':' horários dão ')+sel.vagas+' vagas por semana.';
+    return { ...base, sel, videos, temVideos:videos.length>0, semVideos:videos.length===0,
+      isYt:tab==='yt', isRs:tab==='rs', tabYt:'t'+(tab==='yt'?' on':''), tabRs:'t'+(tab==='rs'?' on':''), goYt:()=>set({tab:'yt'}), goRs:()=>set({tab:'rs'}), isCut:tab==='cut', tabCut:'t'+(tab==='cut'?' on':''), goCut:()=>set({tab:'cut'}), selCut:this.corte(sel), selLinks:this.links(sel),
+      ytOn, ytTxt:ytOn?'Ligada: 1 vídeo por horário':'Pausada: a fila fica guardada', ytBtn:ytOn?'Ligado':'Desligado', ytCls:'sw'+(ytOn?' on':''), toggleYt:()=>set({yt:{...ytMap,[sel.id]:!ytOn}}),
+      fitTxt, fitCls:'fit'+(sel.estoura?' no':''), temMarca:!!sel.m, rsOn, rsBtn:rsOn?'Ligado':'Desligado', rsCls:'sw'+(rsOn?' on':''), toggleRs:()=>set({rs:{...rsMap,[sel.id]:!rsOn}}),
+      metTitulo:sel.m?'Marca '+sel.m.n:'Sem marca', metInfo:sel.m?sel.m.r+'. Conta '+sel.m.c+'.':(sel.nota||'Escolha uma marca para este canal publicar nas redes.') };
+  }
+}
+</script>
+</body>
+</html>
