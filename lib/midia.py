@@ -5,7 +5,7 @@ import subprocess
 
 
 def probe(arquivo):
-    """Retorna (largura, altura, duração em segundos). (0, 0, 0) se não conseguir ler."""
+    """Retorna (largura, altura, duraçêo em segundos). (0, 0, 0) se nêo conseguir ler."""
     try:
         r = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries',
                             'stream=width,height:format=duration', '-of', 'json', arquivo],

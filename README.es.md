@@ -38,7 +38,7 @@ git clone https://github.com/inematds/yt-pub-x3 && cd yt-pub-x3
 pip install -r requirements.txt
 python3 -m unittest tests/test_x3.py
 cp canais/_exemplo.yaml canais/meucanal.yaml   # ajuste os dados do canal
-python3 hub.py --once                          # simulação
+python3 hub.py --once                          # simulaçêo
 python3 dashboard/server.py 8230               # http://127.0.0.1:8230
 ```
 
@@ -82,7 +82,7 @@ entrada/lives4/2026-11-18-enxame/
 {
   "tipo": "video",
   "titulo": "Título no YouTube",
-  "descricao": "Descrição no YouTube",
+  "descricao": "Descriçêo no YouTube",
   "texto_rs": "Texto das redes",
   "tags": ["ia"],
   "destinos": ["youtube", "rs"],

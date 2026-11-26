@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Painel local. Só escuta em 127.0.0.1; não tem senha padrão nem rota que execute comandos."""
+"""Painel local. Só escuta em 127.0.0.1; nêo tem senha padrêo nem rota que execute comandos."""
 import json
 import os
 import re
@@ -53,7 +53,7 @@ class Painel(BaseHTTPRequestHandler):
                 if m and m.group(1) in canais:
                     self._json(200, painel.itens_canal(con, m.group(1)))
                 else:
-                    self._json(404, {'erro': 'não encontrado'})
+                    self._json(404, {'erro': 'nêo encontrado'})
         finally:
             con.close()
 
@@ -71,7 +71,7 @@ class Painel(BaseHTTPRequestHandler):
             if m and m.group(1) in canais_mod.carregar():
                 db.definir_ligado(con, m.group(1), m.group(2), m.group(3) == 'ligar')
                 return self._json(200, {'ok': True})
-            self._json(404, {'erro': 'não encontrado'})
+            self._json(404, {'erro': 'nêo encontrado'})
         finally:
             con.close()
 

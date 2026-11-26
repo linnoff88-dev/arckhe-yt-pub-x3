@@ -26,11 +26,11 @@ def publicador_imagens():
 
 
 def formato(item, rs):
-    """Motivo pelo qual o item não serve para as redes, ou ''."""
+    """Motivo pelo qual o item nêo serve para as redes, ou ''."""
     if item['tipo'] in ('foto', 'carrossel'):
         return ''
     if item['largura'] >= item['altura']:
-        return 'Formato 16:9 não vai para Reels e TikTok'
+        return 'Formato 16:9 nêo vai para Reels e TikTok'
     limite = 180 if 'instagram' in rs['redes'] else 600
     if item['duracao'] > limite:
         return f'Passa de {limite} s'

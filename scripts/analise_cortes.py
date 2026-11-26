@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Análise configurável de cortes; legado claude-api significa configuração local/assinatura."""
+"""Análise configurável de cortes; legado claude-api significa configuraçêo local/assinatura."""
 import argparse, json, sys
 from pathlib import Path
 from ia_motor import carregar, executar

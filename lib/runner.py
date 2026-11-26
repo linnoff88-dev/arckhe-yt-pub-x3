@@ -36,7 +36,7 @@ def avisar(msg, log=print):
         subprocess.run([os.path.join(config.PROJETOS, 'wifi', 'scripts', 'avisa-v3.sh'), f'yt-pub-x3: {msg}'],
                        capture_output=True, timeout=60)
     except Exception as e:
-        log(f'aviso não enviado: {e}')
+        log(f'aviso nêo enviado: {e}')
 
 
 def ligado(con, canal, destino):
@@ -110,7 +110,7 @@ def fazer_capa(con, canal, item_id, simular, log=print):
     it = db.item(con, item_id)
     e = con.execute("SELECT * FROM entregas WHERE item_id=? AND destino='youtube' AND status='feito'", (item_id,)).fetchone()
     if not e:
-        return 'vídeo ainda não publicado'
+        return 'vídeo ainda nêo publicado'
     if simular:
         return 'simulado'
     try:
@@ -136,7 +136,7 @@ def executar(con, job, canais, simular, log=print):
     canal = canais.get(job['canal'])
     try:
         if not canal:
-            raise RuntimeError('canal não existe')
+            raise RuntimeError('canal nêo existe')
         t = job['tipo']
         if not canal['ativo']:
             if t == 'capa':
@@ -160,7 +160,7 @@ def executar(con, job, canais, simular, log=print):
             r = publicar_entrega(con, canal, e, simular, log) if e and e['status'] == 'aguardando' else 'sem efeito'
             agora_e = db.entrega(con, p['entrega_id'])
             if e and agora_e and agora_e['status'] == 'aguardando' and agora_e['atualizado_em'] == e['atualizado_em']:
-                db.apagar_job(con, job['id'])  # não tentou de verdade: precisa poder voltar depois
+                db.apagar_job(con, job['id'])  # nêo tentou de verdade: precisa poder voltar depois
                 return r
         elif t == 'capa':
             r = fazer_capa(con, canal, p['item_id'], simular, log)

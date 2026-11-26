@@ -32,7 +32,7 @@ def _http(req, timeout=60, rede=TEMPORARIO, apos_envio=False):
         corpo = e.read().decode(errors='replace')
         tipo = classifica_http(e.code, corpo)
         if apos_envio and tipo == TEMPORARIO:
-            tipo = AMBIGUO  # os bytes já foram: 5xx não prova que o vídeo não entrou
+            tipo = AMBIGUO  # os bytes já foram: 5xx nêo prova que o vídeo nêo entrou
         raise Falha(f'HTTP {e.code}: {corpo[:300]}', tipo) from None
     except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
         raise Falha(f'rede: {e}', rede) from None
@@ -71,12 +71,12 @@ def publicar(arquivo, titulo, descricao, config_dir, tags='', privacy='public', 
     cab, _ = _http(req)
     sessao = cab.get('Location') or cab.get('location')
     if not sessao:
-        raise Falha('YouTube não abriu o envio', TEMPORARIO)
+        raise Falha('YouTube nêo abriu o envio', TEMPORARIO)
     log(f'enviando {tamanho / 1048576:.1f} MB')
     with open(arquivo, 'rb') as f:
         put = urllib.request.Request(sessao, data=f, method='PUT', headers={
             'Authorization': f'Bearer {token}', 'Content-Type': 'video/*', 'Content-Length': str(tamanho)})
-        # Queda aqui não prova que o vídeo não entrou: vai para "conferir", nunca reenvio automático.
+        # Queda aqui nêo prova que o vídeo nêo entrou: vai para "conferir", nunca reenvio automático.
         _, corpo = _http(put, timeout=3600, rede=AMBIGUO, apos_envio=True)
     vid = json.loads(corpo).get('id')
     if not vid:

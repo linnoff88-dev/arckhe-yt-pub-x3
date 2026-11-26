@@ -39,5 +39,5 @@ def legado_dir():
 
 
 def publicar_de_verdade():
-    """Simulação é o padrão: só X3_PUBLICAR=1 publica, baixa ou gasta IA."""
+    """Simulaçêo é o padrêo: só X3_PUBLICAR=1 publica, baixa ou gasta IA."""
     return os.environ.get('X3_PUBLICAR') == '1'

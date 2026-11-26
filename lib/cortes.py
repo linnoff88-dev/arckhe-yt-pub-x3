@@ -24,13 +24,13 @@ def importar_historico(con, canal):
                          ON CONFLICT(canal,video_id) DO UPDATE SET status=excluded.status, qtd_clips=excluded.qtd_clips
                          WHERE lives.status='pendente' AND excluded.status!='pendente'""",
                          (canal['nome'], r['video_id'], r['titulo'], r['data_live'], mapa.get(r['status_cortes'], 'pendente'),
-                          int(r['qtd_clips'] or 0), '')).rowcount  # sem data: não conta no limite do dia
+                          int(r['qtd_clips'] or 0), '')).rowcount  # sem data: nêo conta no limite do dia
     v.close()
     return n
 
 
 def status_antigo(canal, video_id):
-    """Situação da live no agendador antigo, ou ''. Enquanto ele existir, é ele quem sabe se já cortou."""
+    """Situaçêo da live no agendador antigo, ou ''. Enquanto ele existir, é ele quem sabe se já cortou."""
     p = os.path.join(config.legado_dir(), f"yt-pub-{canal['nome']}", 'data', 'lives.db')
     if not os.path.exists(p):
         return ''
@@ -101,7 +101,7 @@ def cortar_proxima(con, canal, cortar=None, log=print):
             l = c
             break
         novo = {'concluido': 'cortada', 'sem_topicos': 'sem_topicos', 'erro': 'erro'}.get(antigo)
-        if novo:  # sem atualizado_em: não conta no limite do dia
+        if novo:  # sem atualizado_em: nêo conta no limite do dia
             con.execute('UPDATE lives SET status=? WHERE canal=? AND video_id=?', (novo, nome, c['video_id']))
     if not l:
         return 'nenhuma live pendente'
@@ -117,7 +117,7 @@ def cortar_proxima(con, canal, cortar=None, log=print):
             manifesto = []
         qtd = _enfileirar_clipes(con, canal, vid, manifesto)
         status = 'cortada' if manifesto else ('sem_topicos' if os.path.exists(os.path.join(pasta, 'topics.json')) else 'erro')
-        erro = '' if status != 'erro' else 'yt-clip não gerou clipes'
+        erro = '' if status != 'erro' else 'yt-clip nêo gerou clipes'
     except Exception as e:
         status, qtd, erro = 'erro', 0, str(e)
     con.execute('UPDATE lives SET status=?, qtd_clips=?, erro=?, atualizado_em=? WHERE canal=? AND video_id=?',

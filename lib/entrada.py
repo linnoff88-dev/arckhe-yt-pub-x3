@@ -20,7 +20,7 @@ class Recusa(Exception):
 
 
 class Adiar(Exception):
-    """A pasta está certa, mas agora não dá para processar: fica na entrada."""
+    """A pasta está certa, mas agora nêo dá para processar: fica na entrada."""
 
 
 def _quando(v):
@@ -39,7 +39,7 @@ def _midias(pasta):
 
 
 def ja_no_ytpubx(canal, sha, arquivo):
-    """Mesma regra do yt-pubx: sha256; sem sha, compara com o arquivo de origem. Vídeo removido não conta."""
+    """Mesma regra do yt-pubx: sha256; sem sha, compara com o arquivo de origem. Vídeo removido nêo conta."""
     regs, removidos, cache = [], set(), {}
     try:
         with open(config.historico_ytpubx(), encoding='utf-8') as f:
@@ -73,12 +73,12 @@ def ja_no_ytpubx(canal, sha, arquivo):
 
 def _sem_links(pasta):
     if os.path.islink(pasta):
-        raise Recusa('a pasta não pode ser um link')
+        raise Recusa('a pasta nêo pode ser um link')
     real = os.path.realpath(pasta)
     for n in os.listdir(pasta):
         p = os.path.join(pasta, n)
         if os.path.islink(p) or not os.path.realpath(p).startswith(real + os.sep):
-            raise Recusa(f'link não permitido: {n}')
+            raise Recusa(f'link nêo permitido: {n}')
 
 
 def criar_entregas(con, item_id, canal, pede):
@@ -144,7 +144,7 @@ def enfileirar_pasta(con, canal, origem, escrever=None, simular=False):
         raise Recusa('arquivo repetido neste canal')
     l, a, d = midia.probe(caminhos[0]) if tipo == 'video' else (0, 0, 0)
     if tipo == 'video' and not (l and a):
-        raise Recusa('não consegui ler o vídeo')
+        raise Recusa('nêo consegui ler o vídeo')
     titulo, descricao, texto = [str(p.get(k) or '').strip() for k in ('titulo', 'descricao', 'texto_rs')]
     tags = p.get('tags') or []
     falta = (not (titulo and descricao)) if tipo == 'video' else (not texto)
@@ -153,7 +153,7 @@ def enfileirar_pasta(con, canal, origem, escrever=None, simular=False):
         if not contexto:
             raise Recusa('faltam os textos e o contexto para escrevê-los')
         if simular:
-            raise Adiar('em simulação a IA não escreve textos')
+            raise Adiar('em simulaçêo a IA nêo escreve textos')
         marca = os.path.join(origem, '.falha-ia')
         if os.path.exists(marca) and time.time() - os.path.getmtime(marca) < 1800:
             raise Adiar('IA falhou há pouco; tenta de novo em 30 min')
@@ -161,11 +161,11 @@ def enfileirar_pasta(con, canal, origem, escrever=None, simular=False):
             g = escrever(nome, tipo, contexto, caminhos[0] if tipo == 'video' else '', titulo, descricao)
         except Exception as e:
             open(marca, 'w').close()
-            raise Adiar(f'Codex não escreveu os textos: {e}') from None
+            raise Adiar(f'Codex nêo escreveu os textos: {e}') from None
         titulo, descricao = titulo or g.get('titulo', ''), descricao or g.get('descricao', '')
         texto, tags = texto or g.get('texto_rs', ''), tags or g.get('tags', [])
     if tipo == 'video' and not (titulo and descricao):
-        raise Recusa('título ou descrição vazios')
+        raise Recusa('título ou descriçêo vazios')
     if tipo != 'video' and not texto:
         raise Recusa('texto_rs vazio')
     if isinstance(tags, list):

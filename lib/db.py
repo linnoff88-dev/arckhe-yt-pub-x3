@@ -1,4 +1,4 @@
-"""Banco único. Um item é a publicação; cada destino dele é uma entrega independente."""
+"""Banco único. Um item é a publicaçêo; cada destino dele é uma entrega independente."""
 import os
 import sqlite3
 from datetime import datetime
@@ -111,9 +111,9 @@ def concluir(con, eid, status, motivo='', ref='', url='', devolver=False):
 
 
 def acao(con, eid, nome):
-    """Ação manual sobre uma entrega. Retorna True se mudou."""
+    """Açêo manual sobre uma entrega. Retorna True se mudou."""
     if nome not in ACOES:
-        raise ValueError(f'ação desconhecida: {nome}')
+        raise ValueError(f'açêo desconhecida: {nome}')
     origem, destino = ACOES[nome]
     marcas = ','.join('?' * len(origem))
     motivo = {'pular': 'Pulado por você', 'confirmar': 'Confirmado por você'}.get(nome, '')
@@ -172,7 +172,7 @@ def apagar_job(con, job_id):
 
 
 def expirar_atrasados(con, limite_h=1):
-    """Hub que ficou parado não solta de uma vez os horários que perdeu."""
+    """Hub que ficou parado nêo solta de uma vez os horários que perdeu."""
     return con.execute("""UPDATE jobs SET status='erro', resultado='horário perdido', fim_em=?
         WHERE status='pendente' AND tipo IN ('publicar','cortar')
         AND run_at < datetime('now','localtime',?)""", (agora(), f'-{int(limite_h)} hours')).rowcount

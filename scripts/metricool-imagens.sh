@@ -23,7 +23,7 @@ RECIBO="$M/estado/$HASH.recibo.json"
 [ -s "$RECIBO" ] && { echo "já agendado, recibo $RECIBO"; exit 0; }
 
 ALVO=$(( $(date +%s) + 600 ))
-ALVO=$(python3 "$M/intervalo.py" --conector metricool-inematds --marca "$MARCA" --alvo "$ALVO") || { echo "trava de 1 h não leu a agenda"; exit 1; }
+ALVO=$(python3 "$M/intervalo.py" --conector metricool-inematds --marca "$MARCA" --alvo "$ALVO") || { echo "trava de 1 h nêo leu a agenda"; exit 1; }
 QUANDO=$(date -u -d "@$ALVO" +%Y-%m-%dT%H:%M:00)
 
 gh release view social -R "$REPO" >/dev/null 2>&1 || \
@@ -38,8 +38,8 @@ done
 MEDIA="${MEDIA%,}"
 
 PEDIDO="Use só as ferramentas do servidor MCP metricool-inematds.
-1) getBrandSettings: blogId da marca com label exatamente \"$MARCA\" e quais destas redes estão conectadas: $REDES.
-2) getScheduledPosts da marca no dia: se a mesma mídia e o mesmo texto já estiverem agendados, devolva o recibo sem recriar. Senão, createScheduledPost UMA vez, nas redes conectadas:
+1) getBrandSettings: blogId da marca com label exatamente \"$MARCA\" e quais destas redes estêo conectadas: $REDES.
+2) getScheduledPosts da marca no dia: se a mesma mídia e o mesmo texto já estiverem agendados, devolva o recibo sem recriar. Senêo, createScheduledPost UMA vez, nas redes conectadas:
    date = ${QUANDO}Z ; publicationDate = {dateTime: \"$QUANDO\", timezone: \"UTC\"}
    media = [$MEDIA] (nesta ordem) ; text = conteúdo exato do arquivo $TXT (leia com Read)
    draft = false ; autoPublish = true
@@ -50,7 +50,7 @@ OUT=$(printf '%s' "$PEDIDO" | timeout 900 python3 "$M/auto/ia_motor.py" executar
   --ferramentas "mcp__metricool-inematds__getBrandSettings mcp__metricool-inematds__getScheduledPosts mcp__metricool-inematds__createScheduledPost Read" 2>&1)
 J=$(printf '%s' "$OUT" | grep -o '{.*"ok".*}' | tail -1)
 printf '%s' "$J" | python3 -c 'import json,sys; sys.exit(0 if json.load(sys.stdin).get("ok") is True else 1)' 2>/dev/null \
-  || { echo "Metricool não agendou: $(printf '%s' "$OUT" | tail -c 300)"; exit 1; }
+  || { echo "Metricool nêo agendou: $(printf '%s' "$OUT" | tail -c 300)"; exit 1; }
 printf '%s\n' "$J" > "$RECIBO"
 python3 "$M/intervalo.py" --registrar --marca "$MARCA" --alvo "$ALVO"
 PLAN=$(printf '%s' "$J" | python3 -c 'import json,sys; p=json.load(sys.stdin).get("planner") or [""]; print(p[0])')

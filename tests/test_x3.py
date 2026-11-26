@@ -212,7 +212,7 @@ class Entrada(Base):
 
     def test_invalidos(self):
         self.pasta(tipo='outro', arquivos=['a.jpg']); self.pasta(tipo='carrossel', arquivos=['1.jpg'])
-        self.pasta(quando='amanhã')
+        self.pasta(quando='amanhê')
         self.assertEqual(self.varrer(), 0)
         self.assertEqual(self.con.execute('SELECT COUNT(*) FROM recusados').fetchone()[0], 3)
 
@@ -330,7 +330,7 @@ class Cortes(Base):
 
 
 class Revisao(Base):
-    """Defeitos achados na revisão independente de 18/11/2026."""
+    """Defeitos achados na revisêo independente de 18/11/2026."""
 
     def test_400_com_limite_pausa(self):
         self.assertEqual(youtube.classifica_http(400, '"reason":"uploadLimitExceeded"'), COTA)

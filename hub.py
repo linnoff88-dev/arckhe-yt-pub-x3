@@ -28,7 +28,7 @@ def _slots(con, nome, tipo, horarios, payload, prefixo):
         except ValueError:
             log(f'[{nome}] horário inválido: {hm}')
             continue
-        # Hub que subiu atrasado não despeja de uma vez o que passou há mais de 1 h.
+        # Hub que subiu atrasado nêo despeja de uma vez o que passou há mais de 1 h.
         if (agora - quando).total_seconds() <= 3600:
             db.add_job(con, nome, tipo, quando.strftime('%Y-%m-%d %H:%M:%S'), json.dumps(payload), f'{prefixo}:{nome}:{agora:%Y-%m-%d} {hm}')
 
@@ -69,7 +69,7 @@ def ciclo(con, faixas=None):
     agendar(con, canais, simular)
     perdidos = db.expirar_atrasados(con)
     if perdidos:
-        log(f'{perdidos} horário(s) perdido(s) não serão recuperados de uma vez')
+        log(f'{perdidos} horário(s) perdido(s) nêo serêo recuperados de uma vez')
     n = 0
     for job in db.jobs_vencidos(con):
         if not db.reivindicar_job(con, job['id']):
@@ -91,7 +91,7 @@ def main():
         sys.exit('outro hub já está rodando')
     con = db.connect()
     n = db.recuperar_interrompidos(con)
-    log(f"hub v{VERSION} {'PUBLICANDO' if config.publicar_de_verdade() else 'em simulação'}; {n} envio(s) para conferir")
+    log(f"hub v{VERSION} {'PUBLICANDO' if config.publicar_de_verdade() else 'em simulaçêo'}; {n} envio(s) para conferir")
     if '--once' in sys.argv:
         ciclo(con)
         return

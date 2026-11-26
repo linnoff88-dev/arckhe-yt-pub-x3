@@ -105,7 +105,7 @@ svg{display:block;width:100%;height:58px}
   <header>
     <h1><span>YT-Pub</span> X3 Master</h1>
     <div class="meta">
-      <span class="badge p">Prévia: os botões não publicam nada</span>
+      <span class="badge p">Prévia: os botões nêo publicam nada</span>
       <span class="badge">1 processo · 1 painel</span>
       <span>Dados de 18/11 00:33</span>
     </div>
@@ -116,7 +116,7 @@ svg{display:block;width:100%;height:58px}
     <div class="s"><b class="green">{{pub24}}</b><span>Publicados em 24 h</span></div>
     <div class="s"><b class="yellow">{{filaT}}</b><span>Na fila de imports</span></div>
     <div class="s"><b class="pink">{{comRs}}</b><span>Canais com RS</span></div>
-    <div class="s"><b class="red">{{naoCabem}}</b><span>Não cabem nos horários</span></div>
+    <div class="s"><b class="red">{{naoCabem}}</b><span>Nêo cabem nos horários</span></div>
     <div class="s"><b class="mut">{{pausados}}</b><span>Imports pausados</span></div>
     <div class="s"><b class="red">{{errT}}</b><span>Erros de import (histórico)</span></div>
   </div>
@@ -197,13 +197,13 @@ svg{display:block;width:100%;height:58px}
     <sc-if value="{{isYt}}" hint-placeholder-val="{{true}}">
       <div class="box">
         <div class="row">
-          <div><div class="mut">Publicação no YouTube</div><strong>{{ytTxt}}</strong></div>
+          <div><div class="mut">Publicaçêo no YouTube</div><strong>{{ytTxt}}</strong></div>
           <button type="button" class="{{ytCls}}" aria-pressed="{{ytOn}}" onClick="{{toggleYt}}">{{ytBtn}}</button>
         </div>
         <div class="hs"><sc-for list="{{sel.horas}}" as="h" hint-placeholder-count="4"><span class="h">{{h}}</span></sc-for></div>
         <p class="{{fitCls}}">{{fitTxt}}</p>
         <p class="fit">Na fila de imports agora: {{sel.fila}}.</p>
-        <p class="fit">Capa: feita pelo Codex quando o YouTube permite. Short não leva capa.</p>
+        <p class="fit">Capa: feita pelo Codex quando o YouTube permite. Short nêo leva capa.</p>
       </div>
     </sc-if>
     <sc-if value="{{isRs}}" hint-placeholder-val="{{false}}">
@@ -292,17 +292,17 @@ class Component extends DCLogic {
       const horas = r[2] ? r[2].split(',') : [], vagas = horas.length * 7, x = byId[r[0]], estoura = r[3] > vagas;
       const p24 = x.i[4] + x.t[4] + x.c[4] + x.y[2], totPub = x.i[2] + x.t[2] + x.c[2] + x.y[0];
       const nv = r[4] ? 'off' : !horas.length ? 'off' : estoura ? 'bad' : x.i[1] > 30 ? 'warn' : 'ok';
-      const estado = r[4] ? 'Pausado' : !horas.length ? 'Sem horário' : estoura ? 'Não cabe' : x.i[1] > 30 ? 'Fila cheia' : 'Normal';
+      const estado = r[4] ? 'Pausado' : !horas.length ? 'Sem horário' : estoura ? 'Nêo cabe' : x.i[1] > 30 ? 'Fila cheia' : 'Normal';
       return { id:r[0], titulo:r[1], horas, sem:r[3], paus:r[4], m:r[5], nota:r[6]||'', vagas, estoura, x, p24, totPub, nv, estado, fila:x.i[1], url:U[r[0]]||'', k:K[r[0]]||null };
     });
     const fora = 'Ficou de fora: era agendado';
     const v = (id,t,f,y,rs,rw) => ({ id, t, f, yt:['ok','Publicado '+y], rs:[rs||'wait', rw||fora] });
     const V = {
-      lives3:[v('58yr','Sua IA só conversa. Você se afoga','9:16','17/11 07:09','err','Conta ou conector não confirmado'),v('6I9x','Qual tarefa passar pra IA primeiro?','9:16 · 56 s','17/11 16:00'),v('v5g6','Do chat ao agente: escolha comigo…','9:16 · 51 s','17/11 12:00'),v('HlZT','Meu assistente no Telegram só diz pronto…','9:16 · 54 s','17/11 08:00'),v('a2mN','Saia do chat: aprenda IA de graça…','9:16 · 51 s','16/11 22:26'),v('K3pT','Meu Jarvis fala comigo com a minha voz…','9:16 · 57 s','16/11 21:55')],
-      lives4:[v('paEN','IA falando com seu cliente sozinha?','9:16 · 54 s','17/11 16:00'),v('7yLR','Você virou o estagiário do seu perfil?','9:16 · 55 s','17/11 12:00'),v('AR2v','Enxame de agentes pode quebrar sua empresa','9:16','17/11 09:00','ok','Publicado 17/11 09:10'),v('iDe_','A IA pega o atalho. Mude o caminho…','9:16 · 179 s','17/11 08:10'),v('QDpM','Meu Jarvis dá bom dia e mostra tudo…','9:16 · 55 s','17/11 08:00'),v('8GDr','A IA estraga seu projeto? Caminho curto…','16:9 · 179 s','17/11 07:10','skip','Formato 16:9 não vai para Reels e TikTok'),v('jIk3','O agente diz pronto. Quem confere é você…','9:16 · 176 s','17/11 06:06'),v('V-7f','Ela acorda com o trabalho pronto…','16:9 · 194 s','17/11 05:01','skip','Formato 16:9 e mais de 3 minutos'),v('aYp5','O trabalho de escritório vai acabar','9:16 · 56 s','17/11 00:04','ok','Publicado 17/11 01:14'),v('-kD2','Seu medo do terminal deixa sua IA parada…','9:16 · 54 s','16/11 22:27'),v('_h39','Crie seu Jarvis em 6 etapas gratuitas…','9:16 · 53 s','16/11 21:57')],
+      lives3:[v('58yr','Sua IA só conversa. Você se afoga','9:16','17/11 07:09','err','Conta ou conector nêo confirmado'),v('6I9x','Qual tarefa passar pra IA primeiro?','9:16 · 56 s','17/11 16:00'),v('v5g6','Do chat ao agente: escolha comigo…','9:16 · 51 s','17/11 12:00'),v('HlZT','Meu assistente no Telegram só diz pronto…','9:16 · 54 s','17/11 08:00'),v('a2mN','Saia do chat: aprenda IA de graça…','9:16 · 51 s','16/11 22:26'),v('K3pT','Meu Jarvis fala comigo com a minha voz…','9:16 · 57 s','16/11 21:55')],
+      lives4:[v('paEN','IA falando com seu cliente sozinha?','9:16 · 54 s','17/11 16:00'),v('7yLR','Você virou o estagiário do seu perfil?','9:16 · 55 s','17/11 12:00'),v('AR2v','Enxame de agentes pode quebrar sua empresa','9:16','17/11 09:00','ok','Publicado 17/11 09:10'),v('iDe_','A IA pega o atalho. Mude o caminho…','9:16 · 179 s','17/11 08:10'),v('QDpM','Meu Jarvis dá bom dia e mostra tudo…','9:16 · 55 s','17/11 08:00'),v('8GDr','A IA estraga seu projeto? Caminho curto…','16:9 · 179 s','17/11 07:10','skip','Formato 16:9 nêo vai para Reels e TikTok'),v('jIk3','O agente diz pronto. Quem confere é você…','9:16 · 176 s','17/11 06:06'),v('V-7f','Ela acorda com o trabalho pronto…','16:9 · 194 s','17/11 05:01','skip','Formato 16:9 e mais de 3 minutos'),v('aYp5','O trabalho de escritório vai acabar','9:16 · 56 s','17/11 00:04','ok','Publicado 17/11 01:14'),v('-kD2','Seu medo do terminal deixa sua IA parada…','9:16 · 54 s','16/11 22:27'),v('_h39','Crie seu Jarvis em 6 etapas gratuitas…','9:16 · 53 s','16/11 21:57')],
       lives7:[v('ZSXx','Deixe a IA conduzir a tarefa…','9:16 · 57 s','17/11 16:00'),v('csCk','Montar o agente é fácil. Difícil é…','9:16 · 53 s','17/11 12:00'),v('XG1p','Seu Jarvis pode melhorar toda semana…','9:16 · 55 s','17/11 08:00'),v('VSq7','Suas publicações só saem quando você…','9:16 · 54 s','16/11 22:28'),v('QaQ7','Seu agente de IA grátis no PC…','9:16 · 54 s','16/11 21:58')],
       lives12:[v('FC5r','5 níveis de IA para responder um e-mail…','9:16 · 55 s','17/11 16:00'),v('v-Y8','Seu Jarvis ligado no primeiro dia…','9:16 · 55 s','17/11 12:00'),v('C5D_','Você ainda digita pra IA?…','9:16 · 57 s','17/11 08:00'),v('P2J4','Você tem IA, mas nenhum agente…','9:16 · 52 s','16/11 22:30'),v('WDY2','Sua IA errou feio? Desça um nível…','9:16 · 55 s','16/11 21:44')],
-      lives31:[v('3hQY','Seu cliente esperou resposta e foi embora…','9:16 · 53 s','17/11 12:00'),v('Kt0U','Meu agente de IA tem 87 linhas…','9:16 · 56 s','17/11 08:00'),v('Nj1c','Se o chat cair amanhã, o que sobra…','9:16 · 54 s','16/11 22:44'),v('8fv-','Seu Jarvis travou? Siga estas 6 etapas…','9:16 · 56 s','16/11 22:03')]
+      lives31:[v('3hQY','Seu cliente esperou resposta e foi embora…','9:16 · 53 s','17/11 12:00'),v('Kt0U','Meu agente de IA tem 87 linhas…','9:16 · 56 s','17/11 08:00'),v('Nj1c','Se o chat cair amanhê, o que sobra…','9:16 · 54 s','16/11 22:44'),v('8fv-','Seu Jarvis travou? Siga estas 6 etapas…','9:16 · 56 s','16/11 22:03')]
     };
     this._d = { C, V };
     return this._d;
@@ -321,18 +321,18 @@ class Component extends DCLogic {
 
   corte(c) {
     const k = c.k;
-    if (!k) return { tem:false, titulo:'Sem cortes', info:'Este canal não tem lives para cortar.', horas:[] };
+    if (!k) return { tem:false, titulo:'Sem cortes', info:'Este canal nêo tem lives para cortar.', horas:[] };
     const horas = k[7].split(','), ativo = c.id === 'lives1';
     const base = { tem:true, t:k[0], pe:k[1], ok:k[2], er:k[3], h24:k[4], ult:k[5], clips:k[6], horas, prox:this.proximo(horas) };
     if (ativo) return { ...base, titulo:'Ativo: até 1 live por dia', info:'Próximo horário: '+base.prox+'. Último corte: '+k[5]+'. Os clipes prontos entram na fila deste canal.' };
-    if (c.id === 'lives11') return { ...base, titulo:'Parado', info:'Não está pausado na configuração, mas o último corte foi em '+k[5]+'.' };
+    if (c.id === 'lives11') return { ...base, titulo:'Parado', info:'Nêo está pausado na configuraçêo, mas o último corte foi em '+k[5]+'.' };
     return { ...base, titulo:'Desligado', info:'Último corte: '+k[5]+'.' };
   }
 
   proximo(h) {
     if (!h.length) return 'sem horário';
     const d = new Date(), a = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
-    return h.find(x => x > a) || ('amanhã ' + h[0]);
+    return h.find(x => x > a) || ('amanhê ' + h[0]);
   }
 
   grafico(c, dias) {
@@ -349,7 +349,7 @@ class Component extends DCLogic {
     const s = this.state || {}, set = o => this.setState(o);
     const selId = s.sel || null, tab = s.tab || 'yt', filtro = s.filtro || 'todos';
     const st = s.st || {}, ytMap = s.yt || {}, rsMap = s.rs || {}, per = s.per || {};
-    const FS = [['todos','Todos',()=>true],['rs','Com RS',c=>!!c.m],['nao','Não cabem',c=>c.estoura],['fila','Fila cheia',c=>c.fila>30],['pausa','Pausados',c=>c.paus]];
+    const FS = [['todos','Todos',()=>true],['rs','Com RS',c=>!!c.m],['nao','Nêo cabem',c=>c.estoura],['fila','Fila cheia',c=>c.fila>30],['pausa','Pausados',c=>c.paus]];
     const filtros = FS.map(f => ({ label:f[1], on:filtro===f[0], cls:'f'+(filtro===f[0]?' on':''), pick:()=>set({filtro:f[0]}) }));
     const regra = FS.find(f => f[0]===filtro)[2];
     const linha = (n,cor,r) => ({ n, cor, a:r[0], b:r[1], c:r[2], d:r[3], e:r[4], eCls:r[3]>0?'red':'mut' });
@@ -385,7 +385,7 @@ class Component extends DCLogic {
     const rsNome = sel.m ? 'RS · '+sel.m.n : 'RS';
     const videos = (V[sel.id]||[]).map(v => ({ ...v, ds:[dest(v,'yt','YouTube',v.yt), dest(v,'rs',rsNome,v.rs)] }));
     const n = sel.horas.length;
-    const fitTxt = !n ? 'Este canal ainda não tem horário de import.' : (sel.estoura?'Não cabe: chegaram ':'Cabe: chegaram ')+sel.sem+' vídeos em 7 dias, e os '+n+(n===1?' horário dão ':' horários dão ')+sel.vagas+' vagas por semana.';
+    const fitTxt = !n ? 'Este canal ainda nêo tem horário de import.' : (sel.estoura?'Nêo cabe: chegaram ':'Cabe: chegaram ')+sel.sem+' vídeos em 7 dias, e os '+n+(n===1?' horário dêo ':' horários dêo ')+sel.vagas+' vagas por semana.';
     return { ...base, sel, videos, temVideos:videos.length>0, semVideos:videos.length===0,
       isYt:tab==='yt', isRs:tab==='rs', tabYt:'t'+(tab==='yt'?' on':''), tabRs:'t'+(tab==='rs'?' on':''), goYt:()=>set({tab:'yt'}), goRs:()=>set({tab:'rs'}), isCut:tab==='cut', tabCut:'t'+(tab==='cut'?' on':''), goCut:()=>set({tab:'cut'}), selCut:this.corte(sel), selLinks:this.links(sel),
       ytOn, ytTxt:ytOn?'Ligada: 1 vídeo por horário':'Pausada: a fila fica guardada', ytBtn:ytOn?'Ligado':'Desligado', ytCls:'sw'+(ytOn?' on':''), toggleYt:()=>set({yt:{...ytMap,[sel.id]:!ytOn}}),
