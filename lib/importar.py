@@ -10,15 +10,15 @@ import yaml
 from . import canais, config
 
 M = {
-    'FTD': (7908265, ['tiktok', 'instagram'], 'inema.tech', 'inema.tech'),
-    'inema.tds': (7797870, ['tiktok', 'instagram'], 'inema.tds', 'inema.tds'),
-    'VIBE': (8026101, ['tiktok'], '', 'inema.prompts'),
+    'FTD': (7908265, ['tiktok', 'instagram'], 'ARCKHÉ.tech', 'ARCKHÉ.tech'),
+    'ARCKHÉ.tds': (7797870, ['tiktok', 'instagram'], 'ARCKHÉ.tds', 'ARCKHÉ.tds'),
+    'VIBE': (8026101, ['tiktok'], '', 'ARCKHÉ.prompts'),
     'eventosextremos': (7800440, ['tiktok', 'instagram'], 'eventos.extremos', 'eventos.extremos'),
-    'Radar': (7999284, ['tiktok', 'instagram'], 'inema.club24', 'inema.club24'),
-    'inemafuturos': (7577386, ['tiktok', 'instagram'], 'inemafuturos', 'inemafuturos'),
+    'Radar': (7999284, ['tiktok', 'instagram'], 'ARCKHÉ AI24', 'ARCKHÉ AI24'),
+    'ARCKHÉfuturos': (7577386, ['tiktok', 'instagram'], 'ARCKHÉfuturos', 'ARCKHÉfuturos'),
 }
-MARCA = {'lives2': 'Radar', 'lives3': 'FTD', 'lives4': 'inema.tds', 'lives7': 'VIBE', 'lives8': 'VIBE', 'lives10': 'eventosextremos',
-         'lives11': 'inemafuturos', 'lives12': 'inema.tds', 'lives24': 'Radar', 'lives31': 'FTD'}
+MARCA = {'lives2': 'Radar', 'lives3': 'FTD', 'lives4': 'ARCKHÉ.tds', 'lives7': 'VIBE', 'lives8': 'VIBE', 'lives10': 'eventosextremos',
+         'lives11': 'ARCKHÉfuturos', 'lives12': 'ARCKHÉ.tds', 'lives24': 'Radar', 'lives31': 'FTD'}
 RS_LIGADO = {'lives3', 'lives4', 'lives7', 'lives8', 'lives12', 'lives31'}
 NOTAS = {'lives1': 'Saiu do Metricool em 17/11/2026.', 'lives2': 'O Radar Viral tem fluxo próprio.', 'lives24': 'O Radar Viral tem fluxo próprio.',
          'lives10': 'O clima tem fluxo próprio.', 'lives11': 'Outra conta do Metricool (metricool-pub2).'}

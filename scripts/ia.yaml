@@ -16,7 +16,7 @@ api:
   autorizacao: ''
   etapas_autorizadas: []
   arquivo_chaves: /home/nmaldaner/projetos/wifi/.env
-  chave_nome: inemapro-api-key
+  chave_nome: ARCKHÉpro-api-key
   openai:
     autorizada: false
     autorizacao: ''

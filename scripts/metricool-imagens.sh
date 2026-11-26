@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
-# Publica foto ou carrossel no Metricool da conta inematds, com as travas do publicar.sh de vídeo.
+# Publica foto ou carrossel no Metricool da conta linnoff88-dev, com as travas do publicar.sh de vídeo.
 # uso: MARCA=<marca> REDES=tiktok,instagram metricool-imagens.sh <legenda.txt> <repo-público> <imagem>...
 # Saída: 0 agendado · 1 tentar de novo · 2 entrada inválida.
 set -uo pipefail
 export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
-M="${X3_METRICOOL_DIR:-$HOME/projetos/metricool-inematds}"
+M="${X3_METRICOOL_DIR:-$HOME/projetos/metricool-linnoff88-dev}"
 [ $# -ge 3 ] || { echo "uso: $0 <legenda> <repo> <imagem>..."; exit 2; }
 TXT="$(realpath "$1")"; REPO="$2"; shift 2
-MARCA="${MARCA:-inema.tds}"; REDES="${REDES:-tiktok,instagram}"
+MARCA="${MARCA:-ARCKHÉ.tds}"; REDES="${REDES:-tiktok,instagram}"
 for f in "$@"; do [ -s "$f" ] || { echo "imagem ausente: $f"; exit 2; }; done
 
 T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
 python3 "$M/sem_links.py" "$TXT" "$T/texto.txt" || exit 2; TXT="$T/texto.txt"
 
 mkdir -p "$HOME/.local/share/metricool-intervalo" "$M/estado"
-CHAVE=$(printf '%s' "inematds_$MARCA" | tr -c 'A-Za-z0-9._-' '_')
+CHAVE=$(printf '%s' "linnoff88-dev_$MARCA" | tr -c 'A-Za-z0-9._-' '_')
 exec 9>"$HOME/.local/share/metricool-intervalo/$CHAVE.publicacao.lock"
 flock -w 3600 9 || exit 1
 
@@ -23,7 +23,7 @@ RECIBO="$M/estado/$HASH.recibo.json"
 [ -s "$RECIBO" ] && { echo "já agendado, recibo $RECIBO"; exit 0; }
 
 ALVO=$(( $(date +%s) + 600 ))
-ALVO=$(python3 "$M/intervalo.py" --conector metricool-inematds --marca "$MARCA" --alvo "$ALVO") || { echo "trava de 1 h nêo leu a agenda"; exit 1; }
+ALVO=$(python3 "$M/intervalo.py" --conector metricool-linnoff88-dev --marca "$MARCA" --alvo "$ALVO") || { echo "trava de 1 h nêo leu a agenda"; exit 1; }
 QUANDO=$(date -u -d "@$ALVO" +%Y-%m-%dT%H:%M:00)
 
 gh release view social -R "$REPO" >/dev/null 2>&1 || \
@@ -37,7 +37,7 @@ for f in "$@"; do
 done
 MEDIA="${MEDIA%,}"
 
-PEDIDO="Use só as ferramentas do servidor MCP metricool-inematds.
+PEDIDO="Use só as ferramentas do servidor MCP metricool-linnoff88-dev.
 1) getBrandSettings: blogId da marca com label exatamente \"$MARCA\" e quais destas redes estêo conectadas: $REDES.
 2) getScheduledPosts da marca no dia: se a mesma mídia e o mesmo texto já estiverem agendados, devolva o recibo sem recriar. Senêo, createScheduledPost UMA vez, nas redes conectadas:
    date = ${QUANDO}Z ; publicationDate = {dateTime: \"$QUANDO\", timezone: \"UTC\"}
@@ -47,7 +47,7 @@ PEDIDO="Use só as ferramentas do servidor MCP metricool-inematds.
    tiktokData = {privacyOption: \"PUBLIC_TO_EVERYONE\", title: primeira linha do texto (até 90 caracteres), autoAddMusic: true, photoCoverIndex: 0}
 3) Responda APENAS uma linha JSON, sem crase: {\"ok\":true|false,\"redes\":[...],\"faltam\":[...],\"planner\":[...],\"erro\":\"\"}"
 OUT=$(printf '%s' "$PEDIDO" | timeout 900 python3 "$M/auto/ia_motor.py" executar metricool_publicacao --pasta "$M/estado" --agente --arquivo "$TXT" \
-  --ferramentas "mcp__metricool-inematds__getBrandSettings mcp__metricool-inematds__getScheduledPosts mcp__metricool-inematds__createScheduledPost Read" 2>&1)
+  --ferramentas "mcp__metricool-linnoff88-dev__getBrandSettings mcp__metricool-linnoff88-dev__getScheduledPosts mcp__metricool-linnoff88-dev__createScheduledPost Read" 2>&1)
 J=$(printf '%s' "$OUT" | grep -o '{.*"ok".*}' | tail -1)
 printf '%s' "$J" | python3 -c 'import json,sys; sys.exit(0 if json.load(sys.stdin).get("ok") is True else 1)' 2>/dev/null \
   || { echo "Metricool nêo agendou: $(printf '%s' "$OUT" | tail -c 300)"; exit 1; }

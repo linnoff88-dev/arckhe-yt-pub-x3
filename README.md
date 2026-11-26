@@ -1,6 +1,6 @@
 ï»¿# yt-pub-x3
 
-[![yt-pub-x3](guia/assets/banner.jpg)](https://inematds.github.io/yt-pub-x3/guia/)
+[![yt-pub-x3](guia/assets/banner.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/)
 
 **ê°Å¸â¡Â§ê°Å¸â¡Â· [PortuguêÂªs](README.md) êÂ· ê°Å¸â¡Âºê°Å¸â¡Â¸ [English](README.en.md) êÂ· ê°Å¸â¡Âªê°Å¸â¡Â¸ [EspaêÂ±ol](README.es.md)**
 
@@ -10,12 +10,12 @@ O yt-pub-x3 êÂ© uma fila êÂºnica de publicaêÂ§êÂ£o para quem
 
 ## ê°Å¸ââ Guia de uso
 
-Guia completo: **https://inematds.github.io/yt-pub-x3/guia/**
+Guia completo: **https://linnoff88-dev.github.io/arckhe-/guia/**
 
 ## PeêÂ§a para a sua IA analisar
 
 ```text
-Leia o projeto yt-pub-x3 em https://github.com/inematds/yt-pub-x3 (o README explica tudo, inclusive a instalaêÂ§êÂ£o).
+Leia o projeto yt-pub-x3 em https://github.com/linnoff88-dev/yt-pub-x3 (o README explica tudo, inclusive a instalaêÂ§êÂ£o).
 Depois olhe como eu publico hoje e me responda em portuguêÂªs simples:
 1. Quais canais e redes eu tenho, e onde uma falha hoje derruba mais de um destino?
 2. O que o yt-pub-x3 resolveria para mim, e o que ele nêÂ£o resolve?
@@ -25,7 +25,7 @@ NêÂ£o instale, nêÂ£o mude e nêÂ£o publique nada. Mostre o plano, 
 
 **Estado:** v0.1.0, em teste. Passa nos testes com publicadores falsos, mas ainda nêÂ£o publicou em canal real. Os canais nascem desligados e, sem `X3_PUBLICAR=1`, tudo êÂ© simulaêÂ§êÂ£o.
 
-**Para quem êÂ©:** quem jêÂ¡ opera canais com automaêÂ§êÂµes e tem alguêÂ©m têÂ©cnico ou uma IA de cêÂ³digo. Foi feito para a operaêÂ§êÂ£o INEMA e precisa de adaptaêÂ§êÂ£o em outra mêÂ¡quina. Se vocêÂª agenda posts êÂ  mêÂ£o no Metricool, provavelmente nêÂ£o precisa dele.
+**Para quem êÂ©:** quem jêÂ¡ opera canais com automaêÂ§êÂµes e tem alguêÂ©m têÂ©cnico ou uma IA de cêÂ³digo. Foi feito para a operaêÂ§êÂ£o ARCKHÉ e precisa de adaptaêÂ§êÂ£o em outra mêÂ¡quina. Se vocêÂª agenda posts êÂ  mêÂ£o no Metricool, provavelmente nêÂ£o precisa dele.
 
 ---
 
@@ -34,7 +34,7 @@ NêÂ£o instale, nêÂ£o mude e nêÂ£o publique nada. Mostre o plano, 
 Precisa de Linux, Python 3 com `PyYAML` e `cryptography`, `ffmpeg`/`ffprobe`, e `gh` para hospedar mêÂ­dia do Metricool.
 
 ```bash
-git clone https://github.com/inematds/yt-pub-x3 && cd yt-pub-x3
+git clone https://github.com/linnoff88-dev/yt-pub-x3 && cd yt-pub-x3
 pip install -r requirements.txt
 python3 -m unittest tests/test_x3.py
 cp canais/_exemplo.yaml canais/meucanal.yaml   # ajuste os dados do canal
@@ -44,11 +44,11 @@ python3 dashboard/server.py 8230               # http://127.0.0.1:8230
 
 `config_dir` guarda o login do YouTube: `.env` com `CLIENT_ID`, `CLIENT_SECRET` e `API_KEY`, `credentials.enc` e `.encryption_key`. Para criar: `GWS_CONFIG_DIR=<config_dir> scripts/yt-auth`. `importar-canais` sêÂ³ serve para quem jêÂ¡ tem instêÂ¢ncias `yt-pub-livesN`.
 
-**Conector do Metricool.** O publicador êÂ© um programa externo, indicado por `X3_METRICOOL_VIDEO` (padrêÂ£o: `~/projetos/metricool-inematds/publicar.sh`). Ele recebe `<video> <legenda.txt> <repo-pêÂºblico>` e as variêÂ¡veis `MARCA` e `REDES`. SaêÂ­das: `0` agendado (imprima `Metricool: <url>`), `2` formato recusado, outra = tentar de novo. Precisa ser idempotente. A mêÂ­dia fica pêÂºblica no repo de `X3_METRICOOL_REPO`, para o Metricool poder baixar: use um repo seu e leve isso em conta em conteêÂºdo inêÂ©dito. Foto e carrossel usam `scripts/metricool-imagens.sh`, que espera a mesma estrutura em `X3_METRICOOL_DIR`.
+**Conector do Metricool.** O publicador êÂ© um programa externo, indicado por `X3_METRICOOL_VIDEO` (padrêÂ£o: `~/projetos/metricool-linnoff88-dev/publicar.sh`). Ele recebe `<video> <legenda.txt> <repo-pêÂºblico>` e as variêÂ¡veis `MARCA` e `REDES`. SaêÂ­das: `0` agendado (imprima `Metricool: <url>`), `2` formato recusado, outra = tentar de novo. Precisa ser idempotente. A mêÂ­dia fica pêÂºblica no repo de `X3_METRICOOL_REPO`, para o Metricool poder baixar: use um repo seu e leve isso em conta em conteêÂºdo inêÂ©dito. Foto e carrossel usam `scripts/metricool-imagens.sh`, que espera a mesma estrutura em `X3_METRICOOL_DIR`.
 
 **Cortes.** `scripts/yt-clip` usa `yt-dlp`, `ffmpeg`, o motor de `scripts/ia.yaml` e `prompt_cortes.txt` no `config_dir`. Usa `fila-vaga` sêÂ³ se ele existir.
 
-**Capa e textos por IA** usam o `yt-pubx` local (`scripts/ia_ytpubx.py`). Sem ele, informe os textos no `post.json` e coloque `capa.jpg` na pasta. Os avisos usam `avisa-v3.sh` na mêÂ¡quina INEMA; em outra, ficam no log e no painel.
+**Capa e textos por IA** usam o `yt-pubx` local (`scripts/ia_ytpubx.py`). Sem ele, informe os textos no `post.json` e coloque `capa.jpg` na pasta. Os avisos usam `avisa-v3.sh` na mêÂ¡quina ARCKHÉ; em outra, ficam no log e no painel.
 
 **ServiêÂ§os** de exemplo em `systemd/`. Eles nêÂ£o ligam a publicaêÂ§êÂ£o real.
 

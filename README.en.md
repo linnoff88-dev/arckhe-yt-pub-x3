@@ -1,6 +1,6 @@
 # yt-pub-x3
 
-[![yt-pub-x3](guia/assets/banner-en.jpg)](https://inematds.github.io/yt-pub-x3/guia/en/)
+[![yt-pub-x3](guia/assets/banner-en.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/en/)
 
 **🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
 
@@ -10,12 +10,12 @@ yt-pub-x3 is a single publishing queue for people with multiple channels. Your a
 
 ## 📖 User guide
 
-Complete guide: **https://inematds.github.io/yt-pub-x3/guia/en/**
+Complete guide: **https://linnoff88-dev.github.io/arckhe-/guia/en/**
 
 ## Ask your AI to analyze it
 
 ```text
-Read the yt-pub-x3 project at https://github.com/inematds/yt-pub-x3 (the README explains everything, including installation).
+Read the yt-pub-x3 project at https://github.com/linnoff88-dev/yt-pub-x3 (the README explains everything, including installation).
 Then look at how I publish content today and answer in plain English:
 1. Which channels and social networks do I have, and where would a failure today take down more than one destination?
 2. What would yt-pub-x3 solve for me, and what would it not solve?
@@ -25,7 +25,7 @@ Do not install, change, or publish anything. Show me the plan, start with a simu
 
 **Status:** v0.1.0, in testing. It passes tests with fake publishers, but has not published to a real channel yet. Channels start disabled, and without `X3_PUBLICAR=1`, everything is simulated.
 
-**Who it’s for:** people who already operate channels with automations and have a technical person or coding AI. It was built for INEMA’s operations and needs adapting for another computer. If you schedule posts manually in Metricool, you probably don’t need it.
+**Who it’s for:** people who already operate channels with automations and have a technical person or coding AI. It was built for ARCKHÉ’s operations and needs adapting for another computer. If you schedule posts manually in Metricool, you probably don’t need it.
 
 ---
 
@@ -34,7 +34,7 @@ Do not install, change, or publish anything. Show me the plan, start with a simu
 Requires Linux, Python 3 with `PyYAML` and `cryptography`, `ffmpeg`/`ffprobe`, and `gh` to host Metricool media.
 
 ```bash
-git clone https://github.com/inematds/yt-pub-x3 && cd yt-pub-x3
+git clone https://github.com/linnoff88-dev/yt-pub-x3 && cd yt-pub-x3
 pip install -r requirements.txt
 python3 -m unittest tests/test_x3.py
 cp canais/_exemplo.yaml canais/meucanal.yaml   # adjust the channel details
@@ -44,11 +44,11 @@ python3 dashboard/server.py 8230               # http://127.0.0.1:8230
 
 `config_dir` stores the YouTube login: `.env` with `CLIENT_ID`, `CLIENT_SECRET` and `API_KEY`, `credentials.enc` and `.encryption_key`. To create it: `GWS_CONFIG_DIR=<config_dir> scripts/yt-auth`. `importar-canais` is only for people who already have `yt-pub-livesN` instances.
 
-**Metricool connector.** The publisher is an external program specified by `X3_METRICOOL_VIDEO` (default: `~/projetos/metricool-inematds/publicar.sh`). It receives `<video> <legenda.txt> <repo-público>` and the `MARCA` and `REDES` variables. Outputs: `0` scheduled (print `Metricool: <url>`), `2` format rejected, anything else = retry. It must be idempotent. Media is stored publicly in the `X3_METRICOOL_REPO` repo so Metricool can download it: use your own repo and keep this in mind for unreleased content. Photos and carousels use `scripts/metricool-imagens.sh`, which expects the same structure in `X3_METRICOOL_DIR`.
+**Metricool connector.** The publisher is an external program specified by `X3_METRICOOL_VIDEO` (default: `~/projetos/metricool-linnoff88-dev/publicar.sh`). It receives `<video> <legenda.txt> <repo-público>` and the `MARCA` and `REDES` variables. Outputs: `0` scheduled (print `Metricool: <url>`), `2` format rejected, anything else = retry. It must be idempotent. Media is stored publicly in the `X3_METRICOOL_REPO` repo so Metricool can download it: use your own repo and keep this in mind for unreleased content. Photos and carousels use `scripts/metricool-imagens.sh`, which expects the same structure in `X3_METRICOOL_DIR`.
 
 **Clips.** `scripts/yt-clip` uses `yt-dlp`, `ffmpeg`, the engine in `scripts/ia.yaml`, and `prompt_cortes.txt` in `config_dir`. It uses `fila-vaga` only if it exists.
 
-**AI-generated cover images and text** use the local `yt-pubx` (`scripts/ia_ytpubx.py`). Without it, provide the text in `post.json` and put `capa.jpg` in the folder. Notifications use `avisa-v3.sh` on the INEMA computer; on another computer, they appear in the log and dashboard.
+**AI-generated cover images and text** use the local `yt-pubx` (`scripts/ia_ytpubx.py`). Without it, provide the text in `post.json` and put `capa.jpg` in the folder. Notifications use `avisa-v3.sh` on the ARCKHÉ computer; on another computer, they appear in the log and dashboard.
 
 **Example services** are in `systemd/`. They do not enable real publishing.
 

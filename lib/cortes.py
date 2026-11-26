@@ -55,7 +55,7 @@ def executar_yt_clip(canal, video_id, log=print):
     s = os.path.join(config.ROOT, 'scripts')
     cmd = [os.path.join(s, 'yt-clip'), '--ai', canal['cortes']['ai_modo'], '--', video_id]
     vaga = os.path.join(config.PROJETOS, 'wifi', 'scripts', 'fila-vaga')
-    if os.path.exists(vaga):  # na máquina INEMA, respeita as vagas de trabalho pesado
+    if os.path.exists(vaga):  # na máquina ARCKHÉ, respeita as vagas de trabalho pesado
         cmd = [vaga, 'render', f"x3-corte-{canal['nome']}", '--', *cmd]
     env = {**os.environ, 'LIVES_DIR': canal['lives_dir'], 'GWS_CONFIG_DIR': canal['config_dir']}
     r = subprocess.run(cmd, env=env, capture_output=True, text=True, timeout=TEMPO)

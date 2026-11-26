@@ -11,14 +11,14 @@ from .falhas import DEFINITIVO, FORMATO, TEMPORARIO, Falha
 
 def repo_midia():
     """Repo público que hospeda a mídia: o Metricool precisa de URL pública."""
-    return os.environ.get('X3_METRICOOL_REPO') or 'inematds/yt-pubx'
+    return os.environ.get('X3_METRICOOL_REPO') or 'linnoff88-dev/yt-pubx'
 
 
 TEMPO = 5400  # espera da trava da marca + agente
 
 
 def publicador_video():
-    return os.environ.get('X3_METRICOOL_VIDEO') or os.path.join(config.PROJETOS, 'metricool-inematds', 'publicar.sh')
+    return os.environ.get('X3_METRICOOL_VIDEO') or os.path.join(config.PROJETOS, 'metricool-linnoff88-dev', 'publicar.sh')
 
 
 def publicador_imagens():

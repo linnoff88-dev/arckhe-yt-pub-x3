@@ -18,7 +18,7 @@ Por que existe: em 17/11, 26 Shorts agendados dos lives nêo foram ao Metricool.
 - Painel no estilo do Master Dashboard atual: cartêo completo por canal, com links para o canal no YouTube, Metricool, Instagram e TikTok. Tabela: Lives, Clips, Imports, yt-pubx, Metricool. Sem a linha de captaçêo do TikTok.
 - O x3 **implementa os cortes de lives em clipes**. Hoje só o lives1 está ativo. A captaçêo de vídeos do TikTok fica de fora (confirmar: postar no TikTok pelo Metricool continua).
 - Capa pelo Codex só onde é permitido; Short nêo leva. Codex falhou = publica sem capa, avisa no bot, sem flux.
-- Pedido final do Nei: **publicar o projeto no portal e no INEMA.VIBE**, quando estiver pronto.
+- Pedido final do Nei: **publicar o projeto no portal e no ARCKHÉ.VIBE**, quando estiver pronto.
 
 ## Entrada
 
@@ -44,12 +44,12 @@ Nêo mover o arquivo enquanto algum destino estiver pendente, com erro ou pausad
 
 `canais/livesN.yaml` (fora do git, todos `ativo: false`): `destino_id`, `destino_nome`, `url`, `origem_id`, `config_dir` e `lives_dir` apontando para `yt-pub-livesN`, `youtube{ligado,horarios,privacy}` (usar `import_pub_horarios`, nêo `pub_horarios`), `rs{provedor,ligado,marca,blog_id,redes,perfis}`, `cortes{ligado,horarios,max_por_dia}`. Sêo 19 canais: 1–12, 22–26, 31, 32.
 
-Marcas: lives3/31 FTD 7908265 · lives4/12 inema.tds 7797870 · lives7/8 VIBE 8026101 (só TikTok) · lives10 eventosextremos 7800440 · lives2/24 Radar 7999284 · lives11 inemafuturos 7577386 (outra conta, `metricool-pub2`) · lives1 fora do Metricool. Só rs ligado por padrêo onde o publicador atual serve; lives10, lives11 e Radar têm fluxos próprios: decidir no piloto.
+Marcas: lives3/31 FTD 7908265 · lives4/12 ARCKHÉ.tds 7797870 · lives7/8 VIBE 8026101 (só TikTok) · lives10 eventosextremos 7800440 · lives2/24 Radar 7999284 · lives11 ARCKHÉfuturos 7577386 (outra conta, `metricool-pub2`) · lives1 fora do Metricool. Só rs ligado por padrêo onde o publicador atual serve; lives10, lives11 e Radar têm fluxos próprios: decidir no piloto.
 
 ## Conectores
 
-- **Metricool, vídeo:** subprocesso de `~/projetos/metricool-inematds/publicar.sh <video> <legenda> inematds/yt-pubx` com `MARCA`, `REDES` (como `yt-pubx/hooks/metricool.py`). Mantém trava por marca, 1 h, `sem_links`, recibo. Reusar o mesmo arquivo de legenda na repetiçêo (o recibo depende dele). Saída 0 = feito; 2 = formato/ignorado; 1 = tentar de novo. Conferir antes: vertical, ≤180 s com Instagram, ≤600 s só TikTok.
-- **Metricool, foto/carrossel:** `publicar.sh` só aceita vídeo. Base: `~/projetos/carrossel-inema/scripts/publicar.sh` (release pública + `createScheduledPost`, `instagramData.type=POST`), mas ele exige `01-capa.png`, publica rascunho sem `AO_VIVO=1` e usa `claude -p`; adaptar sem mudar o original.
+- **Metricool, vídeo:** subprocesso de `~/projetos/metricool-linnoff88-dev/publicar.sh <video> <legenda> linnoff88-dev/yt-pubx` com `MARCA`, `REDES` (como `yt-pubx/hooks/metricool.py`). Mantém trava por marca, 1 h, `sem_links`, recibo. Reusar o mesmo arquivo de legenda na repetiçêo (o recibo depende dele). Saída 0 = feito; 2 = formato/ignorado; 1 = tentar de novo. Conferir antes: vertical, ≤180 s com Instagram, ≤600 s só TikTok.
+- **Metricool, foto/carrossel:** `publicar.sh` só aceita vídeo. Base: `~/projetos/carrossel-ARCKHÉ/scripts/publicar.sh` (release pública + `createScheduledPost`, `instagramData.type=POST`), mas ele exige `01-capa.png`, publica rascunho sem `AO_VIVO=1` e usa `claude -p`; adaptar sem mudar o original.
 - **Blotato e Upload-Post:** só desenho/desligados. **Nêo chamar sem autorizaçêo e chave.**
 
 ## Cortes
@@ -62,7 +62,7 @@ Reaproveitar a lógica de `gerar_metadados` e `arte_codex`/`gerar_thumb` do `~/p
 
 ## Painel
 
-`dashboard/`, porta própria só em 127.0.0.1, **sem senha padrêo, sem rota de execuçêo ou reinício**. Dados de x3 + leitura somente-leitura de `yt-pub-livesN/data/lives.db`, `historico.jsonl` do yt-pubx e recibos em `metricool-inematds/estado`. Ações por entrega: pausar, retomar, pular, reenviar; por canal: ligar/desligar cada destino. POST exige cabeçalho próprio.
+`dashboard/`, porta própria só em 127.0.0.1, **sem senha padrêo, sem rota de execuçêo ou reinício**. Dados de x3 + leitura somente-leitura de `yt-pub-livesN/data/lives.db`, `historico.jsonl` do yt-pubx e recibos em `metricool-linnoff88-dev/estado`. Ações por entrega: pausar, retomar, pular, reenviar; por canal: ligar/desligar cada destino. POST exige cabeçalho próprio.
 
 ## Testes = critério de pronto (só publicadores falsos e pastas temporárias)
 
@@ -74,4 +74,4 @@ Nêo mexer em yt-pubx, `~/.config/yt-pubx/config.json`, agendadores antigos, sys
 
 ## Publicaçêo do projeto (depois de pronto e testado)
 
-Repo `inematds/yt-pub-x3`, guia em `guia/` PT/EN/ES (skill `projetos-landing-guia`), portal (skill `atualiza-portal`), tópico no **INEMA.VIBE** (skill `postar-telegram`). Todo guia leva vídeo depois. Conferir que nada de `canais/*.yaml`, `data/`, `entrada/` nem credencial entra no git. Arquivos da casa: README com "O processo, do início ao fim", CLAUDE.md com Self-learning e Lessons, FALHAS.md, versêo semver.
+Repo `linnoff88-dev/yt-pub-x3`, guia em `guia/` PT/EN/ES (skill `projetos-landing-guia`), portal (skill `atualiza-portal`), tópico no **ARCKHÉ.VIBE** (skill `postar-telegram`). Todo guia leva vídeo depois. Conferir que nada de `canais/*.yaml`, `data/`, `entrada/` nem credencial entra no git. Arquivos da casa: README com "O processo, do início ao fim", CLAUDE.md com Self-learning e Lessons, FALHAS.md, versêo semver.

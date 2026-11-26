@@ -2,7 +2,7 @@
 
 Publicador único: fila por canal → YouTube + redes sociais, com status por destino, e cortes de lives. Decisões em `docs/ESPECIFICACAO.md`; uso em `README.md`.
 
-- Conta GitHub: `inematds`.
+- Conta GitHub: `linnoff88-dev`.
 - Publicar de verdade só com `X3_PUBLICAR=1` e canal `ativo: true`. Ligar canal novo é decisêo do Nei.
 - Nêo alterar yt-pubx, `~/.config/yt-pubx/config.json` nem os agendadores `yt-pub-livesN` sem pedido.
 - Falha de login/cota nunca consome vídeo; envio interrompido vai para `conferir`.

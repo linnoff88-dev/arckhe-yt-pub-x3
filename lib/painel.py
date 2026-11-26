@@ -41,7 +41,7 @@ def _historico_ytpubx(dias):
 
 def _recibos():
     out = collections.Counter()
-    d = os.path.join(config.legado_dir(), 'metricool-inematds', 'estado')
+    d = os.path.join(config.legado_dir(), 'metricool-linnoff88-dev', 'estado')
     for p in glob.glob(os.path.join(d, '*.recibo.json')):
         try:
             m = re.search(r'blogId=(\d+)', open(p, encoding='utf-8').read())
